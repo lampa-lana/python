@@ -10,9 +10,9 @@ name = input('Введите ваше имя: ')
 change = age - 18
 print(name, 'На ', change, 'лет больше 18')
 if change > 0 :
-  print('На ', change, 'лет больше 18')
+  print('На ', change, 'лет/год больше 18')
 if change < 0 :
-  print('На ', -change, 'лет меньше 18')  
+  print('На ', -change, 'лет/год меньше 18')  
 
 
 # Задача-2: Исходные значения двух переменных запросить у пользователя.
@@ -37,3 +37,26 @@ print('Высота: ', height, 'Ширина: ',  width)
 # import math
 # math.sqrt(4) - вычисляет корень числа 4
 
+from math import sqrt
+print("Введите коэффициенты для квадратного уравнения  (ax² + bx + c = 0):")
+a = float(input("a = "))
+b = float(input("b = "))
+c = float(input("c = "))
+D = b ** 2 - 4 * a * c
+if D < 0:
+
+   print("Нет решений")
+
+if D == 0:
+
+   x = (-1 * b + sqrt(D)) / (2 * a)
+
+   print("Уравнение имеет одно решение:", x)
+
+else:
+
+   x1 = (-1 * b + sqrt(D)) / (2 * a)
+
+   x2 = (-1 * b - sqrt(D)) / (2 * a)
+
+   print("Уравнение имеет два решения:", x1, "и", x2)
