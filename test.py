@@ -4,15 +4,16 @@
 # вычесть из возраста 18 и вывести на экран в следующем виде:
 # "Василий на 2 года/лет больше 18"
 # по желанию сделать адаптивный вывод, то есть "на 5 лет больше", "на 3 года меньше" и.т.д.
- 
+
+from math import sqrt
 age = int(input('Введите ваш возраст: '))
 name = input('Введите ваше имя: ')
 change = age - 18
 print(name, 'На ', change, 'лет больше 18')
-if change > 0 :
-  print('На ', change, 'лет/год больше 18')
-if change < 0 :
-  print('На ', -change, 'лет/год меньше 18')  
+if change > 0:
+    print('На ', change, 'лет/год больше 18')
+if change < 0:
+    print('На ', -change, 'лет/год меньше 18')
 
 
 # Задача-2: Исходные значения двух переменных запросить у пользователя.
@@ -23,9 +24,9 @@ if change < 0 :
 # Не нужно решать задачу так:
 # print("a = ", b, "b = ", a) - это неправильное решение!
 
-width  = int(input('Введите ширину: '))
+width = int(input('Введите ширину: '))
 height = int(input('Введите высоту: '))
-temp =  width
+temp = width
 width = height
 height = temp
 print('Высота: ', height, 'Ширина: ',  width)
@@ -37,26 +38,17 @@ print('Высота: ', height, 'Ширина: ',  width)
 # import math
 # math.sqrt(4) - вычисляет корень числа 4
 
-from math import sqrt
 print("Введите коэффициенты для квадратного уравнения  (ax² + bx + c = 0):")
 a = float(input("a = "))
 b = float(input("b = "))
 c = float(input("c = "))
 D = b ** 2 - 4 * a * c
 if D < 0:
-
-   print("Нет решений")
-
+    print("Нет решений")
 if D == 0:
-
-   x = (-1 * b + sqrt(D)) / (2 * a)
-
-   print("Уравнение имеет одно решение:", x)
-
-else:
-
-   x1 = (-1 * b + sqrt(D)) / (2 * a)
-
-   x2 = (-1 * b - sqrt(D)) / (2 * a)
-
-   print("Уравнение имеет два решения:", x1, "и", x2)
+    x = (-1 * b + sqrt(D)) / (2 * a)
+    print("Уравнение имеет одно решение:", x)
+if D > 0:
+    x1 = (-1 * b + sqrt(D)) / (2 * a)
+    x2 = (-1 * b - sqrt(D)) / (2 * a)
+    print("Уравнение имеет два решения:", x1, "и", x2)
