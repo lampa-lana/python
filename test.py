@@ -12,7 +12,7 @@ change = age - 18
 print(name, 'На ', change, 'лет больше 18')
 if change > 0:
     print('На ', change, 'лет/год больше 18')
-if change < 0:
+else:
     print('На ', -change, 'лет/год меньше 18')
 
 
