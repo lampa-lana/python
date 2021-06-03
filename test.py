@@ -52,7 +52,7 @@ else:
 num = int(input(" Введите любое положительное число: "))
 max_num = 0
 while num > 0:
-    if num % 10 > max_num:
+    if num % 10 > max_num:  # если num больше max_num, то max_num перезаписывается и сравнивается дальше вновом цикле
         max_num = num % 10
     num = num // 10
 print(max_num)
