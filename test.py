@@ -25,7 +25,11 @@ convert(int(input(' Введите количество км для перево
 
 
 def my_round(number, ndigits):
-    pass
+    # Чтобы сохранить определенное количество разрядов после запятой число следует сначала сдвинуть влево на соответствующее число разрядов,
+    number = number*(10**ndigits)+0.41
+    number = number//1  # Дробная часть числа равна остатку от его деления на единицу
+    # взять  целую часть числа и сдвинуть обратно в право на столько же разрядов
+    return number/(10**ndigits)
 
 
 print(my_round(2.1234567, 5))
@@ -42,13 +46,16 @@ print(my_round(2.9999967, 5))
 
 def lucky_ticket(ticket_number):
     if len(str(ticket_number)) == 6:
+        # перевод переменной в строку, чтобы сделать срезы строки и отдельно посчитать их
         num = str(ticket_number)
-        lst1 = int(num[:1]) + int(num[1:2]) + int(num[2:3])
-        lst2 = int(num[-1]) + int(num[-2]) + int(num[-3])
-        if lst1 == lst2:
+        lst1 = int(num[:1]) + int(num[1:2]) + \
+            int(num[2:3])  # складываем первые три знака
+        lst2 = int(num[-1]) + int(num[-2]) + \
+            int(num[-3])  # складываем последние три знака
+        if lst1 == lst2:  # если сумма справа и слева номера билета равны - возвращаем true
             return True
     else:
-        return False
+        return False  # в противном случае - возвращаем false
 
 
 print(lucky_ticket(123006))
