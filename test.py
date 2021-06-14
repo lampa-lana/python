@@ -88,19 +88,47 @@ print('fibonacci(1, 6): ', fibonacci(
 
 
 def sort_to_max(origin_list):
-    pass
+    swapped = True
+    while swapped:
+        swapped = False
+        for i in range(len(origin_list) - 1):
+            if origin_list[i] > origin_list[i + 1]:
+                # Меняем элементы
+                origin_list[i], origin_list[i +
+                                            1] = origin_list[i + 1], origin_list[i]
+                # Устанавливаем swapped в True для следующей итерации
+                swapped = True
+    return origin_list
 
 
-sort_to_max([2, 10, -12, 2.5, 20, -11, 4, 4, 0])
+z = [2, 10, -12, 2.5, 20, -11, 4, 4, 0]
+sort_to_max(z)
+print(z)
+print(sort_to_max([2, 10, -12, 2.5, 20, -11, 4, 4, 0]))
+
 
 # Задача-3:
 # Напишите собственную реализацию стандартной функции filter.
 # Разумеется, внутри нельзя использовать саму функцию filter.
 
+numbers = [10, 4, 2, -1, 6]
+print(list(filter(lambda x: x < 5, numbers)))
+
+
+def filt(num):
+    new_l = []
+    for i in num:
+        if i < 5:
+            new_l.append(i)
+    return new_l
+
+
+print(filt([10, 4, 2, -1, 6]))
 
 # Задача-4:
 # Даны четыре точки А1(х1, у1), А2(x2 ,у2), А3(x3 , у3), А4(х4, у4).
 # Определить, будут ли они вершинами параллелограмма.
+
 
 def is_parallelogram(a1, a2, a3, a4):
     if abs(a3[0] - a2[0]) == abs(a4[0] - a1[0]) and abs(a2[1] - a1[1]) == abs(a3[1] - a4[1]):
