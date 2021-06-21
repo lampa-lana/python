@@ -87,21 +87,6 @@ line = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysmNO'\
 line_re = re.findall(r'[a-z]+', line)
 print('Line_re: \n', line_re)
 
-# ord() – преобразование символа в код ASCII
-# chr() – преобразование кода ASCII в символ
-# Преобразуем список из кодов ANSI в список букв A-Z
-symbol = list(map(lambda x: chr(x), list(range(65, 91))))
-
-new_line = (list(line)).copy()  # копия стоки line преобразован в список
-
-for i, j in enumerate(new_line[:]):  # перебираем наш список
-    for k in symbol:  # перебор с помлщью полученного алфавита
-        if j == k:  # если  есть совпадения
-            new_line[i] = ' '
-new_str = ''.join(new_line).split(' ')
-
-line_new_str = [i for i in new_str if i != '']
-print('Line_not_re: \n', line_new_str)
 
 # Задание-2:
 # Вывести символы в верхнем регистре, слева от которых находятся
@@ -131,14 +116,13 @@ line_re2 = re.findall(r'[a-z]{2}([A-Z]+)[A-Z]{2}', line_2)
 print('Line_re2: \n', line_re2)
 
 
-#print('List2 =', lst2)
-
 # Задание-3:
 # Напишите скрипт, заполняющий указанный файл (самостоятельно задайте имя файла)
 # произвольными целыми цифрами, в результате в файле должно быть
 # 2500-значное произвольное число.
 # Найдите и выведите самую длинную последовательность одинаковых цифр
 # в вышезаполненном файле.
+
 
 # HARD
 # Задание-1:
