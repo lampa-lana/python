@@ -1,140 +1,195 @@
 import math
 import random
+import copy
+import re
 # EASY
+# Все задачи текущего блока решите с помощью генераторов списков!
+
 # Задание-1:
-# Напишите функцию, переводящую км в мили и выводящую информацию на консоль
-# т.е функция ничего не возвращает, а выводит на консоль ответ самостоятельно
-# Предполагается, что 1км = 1,609 мили
+# Дан список, заполненный произвольными целыми числами.
+# Получить новый список, элементы которого будут
+# квадратами элементов исходного списка
+# [1, 2, 4, 0] --> [1, 4, 16, 0]
 
+my_list = [1, 2, 4, 0]
+print(my_list)
+#new_list = list(map(lambda x: x**2, my_list.copy()))
+new_list = [i ** 2 for i in my_list.copy()]
+print(my_list, new_list)
 
-def convert(km):
-    if km > 0:
-        miles = km * 1.609
-        print(miles)
-    else:
-        print(" Задайте положительное число!")
-
-
-convert(int(input(' Введите количество км для перевода в мили: ')))
 
 # Задание-2:
-# Напишите функцию, округляющую полученное произвольное десятичное число
-# до кол-ва знаков (кол-во знаков передается вторым аргументом).
-# Округление должно происходить по математическим правилам (0.6 --> 1, 0.4 --> 0).
-# Для решения задачи не используйте встроенные функции и функции из модуля math.
+# Даны два списка фруктов.
+# Получить список фруктов, присутствующих в обоих исходных списках.
+
+# lst1 = ['банан', 'апельсин',   'мандарин', 'малина', 'яблоко',  'киви']
+# lst2 = ['банан', 'апельсин',   'груша',  'черешня',  'клубника',  'малина']
+# lst3 = []
 
 
-def my_round(number, ndigits):
-    # Чтобы сохранить определенное количество разрядов после запятой число следует сначала сдвинуть влево на соответствующее число разрядов,
-    number = number*(10**ndigits)+0.41
-    number = number//1  # Дробная часть числа равна остатку от его деления на единицу
-    # взять  целую часть числа и сдвинуть обратно в право на столько же разрядов
-    return number/(10**ndigits)
+lst1 = ['банан', 'апельсин',   'мандарин', 'малина', 'яблоко',  'киви']
+lst2 = ['банан', 'апельсин',   'груша',  'черешня',  'клубника',  'малина']
 
 
-print(my_round(2.1234567, 5))
-print(my_round(2.1999967, 5))
-print(my_round(2.9999967, 5))
+def fruits():
+    lst3 = []
+    for i in lst1.copy():
+        for j in lst2.copy():
+            if i == j:
+                lst3.append(i)
+    print(lst3)
 
+
+fruits()
+
+lst4 = [i for i in lst1.copy() if i in lst2.copy()]
+print(lst4)
 
 # Задание-3:
-# Дан шестизначный номер билета. Определить, является ли билет счастливым.
-# Решение реализовать в виде функции.
-# Билет считается счастливым, если сумма его первых и последних цифр равны.
-# !!!P.S.: функция не должна НИЧЕГО print'ить, должна возвращать либо True,
-# ибо False (если счастливый и несчастливый соответственно)
+# Дан список, заполненный произвольными числами.
+# Получить список из элементов исходного, удовлетворяющих следующим условиям:
+# + Элемент кратен 3
+# + Элемент положительный
+# + Элемент не кратен 4
 
-def lucky_ticket(ticket_number):
-    if len(str(ticket_number)) == 6:
-        # перевод переменной в строку, чтобы сделать срезы строки и отдельно посчитать их
-        num = str(ticket_number)
-        lst1 = int(num[:1]) + int(num[1:2]) + \
-            int(num[2:3])  # складываем первые три знака
-        lst2 = int(num[-1]) + int(num[-2]) + \
-            int(num[-3])  # складываем последние три знака
-        if lst1 == lst2:  # если сумма справа и слева номера билета равны - возвращаем true
-            return True
-    else:
-        return False  # в противном случае - возвращаем false
+super_list = [1, 2, 5, 7, 9, 10, 12, 25, -100, 120, -3, -6, 0]
+super_list2 = []
+for i in super_list:
+    if i > 0 and i % 3 == 0 and i % 4 != 0:
+        super_list2.append(i)
+print(super_list2)
 
+super_list3 = [i for i in super_list if i > 0 and i % 3 == 0 and i % 4 != 0]
+print(super_list3)
 
-print(lucky_ticket(123006))
-print(lucky_ticket(12321))
-print(lucky_ticket(436751))
-
-
-# Normal
+# NORMAL
 # Задание-1:
-# Напишите функцию, возвращающую ряд Фибоначчи с n-элемента до m-элемента.
-# Первыми элементами ряда считать цифры 1 1
+# Вывести символы в нижнем регистре, которые находятся вокруг
+# 1 или более символов в верхнем регистре.
+# Т.е. из строки "mtMmEZUOmcq" нужно получить ['mt', 'm', 'mcq']
+# Решить задачу двумя способами: с помощью re и без.
 
-def fibonacci(n, m):
-    a, b = 1, 1  # первые элементв ряда
-    lst = [1, ]  # создание списка для заполнения ряда
-    for i in range(m):  # перебор циклом ряда до значения m
-        a, b = b, a + b  # порядок формирования элем в ряду значение "a" становится 'b', a'b' -считается как сумма пред элементов
-        lst.append(a)  # добавляем элементы в список
-    return lst[n - 1: m]  # возвращаем список в срезе заданных элементов
+line = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysmNO'\
+       'GIPHpEMujalpPLNzRWXfwHQqwksrFeipEUlTLeclMwAoktKlfUBJHPsnawvjPhfgewVzK'\
+       'TUfSYtBydXaVIpxWjNKgXANvIoumesCSSvjEGRJosUfuhRRDUuTQwLlJJJDdkVjfSAHqn'\
+       'LxooisBDWuxIhyjJaXDYwdoVPnsllMngNlmkpYOlqXEFIxPqqqgAWdJsOvqppOfyIVjXa'\
+       'pzGOrfinzzsNMtBIOclwbfRzytmDgEFUzxvZGkdOaQYLVBfsGSAfJMchgBWAsGnBnWete'\
+       'kUTVuPluKRMQsdelzBgLzuwiimqkFKpyQRzOUyHkXRkdyIEBvTjdByCfkVIAQaAbfCvzQ'\
+       'WrMMsYpLtdqRltXPqcSMXJIvlBzKoQnSwPFkapxGqnZCVFfKRLUIGBLOwhchWCdJbRuXb'\
+       'JrwTRNyAxDctszKjSnndaFkcBZmJZWjUeYMdevHhBJMBSShDqbjAuDGTTrSXZywYkmjCC'\
+       'EUZShGofaFpuespaZWLFNIsOqsIRLexWqTXsOaScgnsUKsJxiihwsCdBViEQBHQaOnLfB'\
+       'tQQShTYHFqrvpVFiiEFMcIFTrTkIBpGUflwTvAzMUtmSQQZGHlmQKJndiAXbIzVkGSeuT'\
+       'SkyjIGsiWLALHUCsnQtiOtrbQOQunurZgHFiZjWtZCEXZCnZjLeMiFlxnPkqfJFbCfKCu'\
+       'UJmGYJZPpRBFNLkqigxFkrRAppYRXeSCBxbGvqHmlsSZMWSVQyzenWoGxyGPvbnhWHuXB'\
+       'qHFjvihuNGEEFsfnMXTfptvIOlhKhyYwxLnqOsBdGvnuyEZIheApQGOXWeXoLWiDQNJFa'\
+       'XiUWgsKQrDOeZoNlZNRvHnLgCmysUeKnVJXPFIzvdDyleXylnKBfLCjLHntltignbQoiQ'\
+       'zTYwZAiRwycdlHfyHNGmkNqSwXUrxGc'
+line_re = re.findall(r'[a-z]+', line)
+print('Line_re: \n', line_re)
 
+# ord() – преобразование символа в код ASCII
+# chr() – преобразование кода ASCII в символ
+# Преобразуем список из кодов ANSI в список букв A-Z
+symbol = list(map(lambda x: chr(x), list(range(65, 91))))
 
-print('fibonacci(1, 6): ', fibonacci(
-    int(input(' Введите число n: ')), int(input(' Введите число m: '))))
+new_line = (list(line)).copy()  # копия стоки line преобразован в список
 
+for i, j in enumerate(new_line[:]):  # перебираем наш список
+    for k in symbol:  # перебор с помлщью полученного алфавита
+        if j == k:  # если  есть совпадения
+            new_line[i] = ' '
+new_str = ''.join(new_line).split(' ')
 
-# Задача-2:
-# Напишите функцию, сортирующую принимаемый список по возрастанию.
-# Для сортировки используйте любой алгоритм (например пузырьковый).
-# Для решения данной задачи нельзя использовать встроенную функцию и метод sort()
+line_new_str = [i for i in new_str if i != '']
+print('Line_not_re: \n', line_new_str)
 
+# Задание-2:
+# Вывести символы в верхнем регистре, слева от которых находятся
+# два символа в нижнем регистре, а справа - два символа в верхнем регистре.
+# Т.е. из строки
+# "GAMkgAYEOmHBSQsSUHKvSfbmxULaysmNOGIPHpEMujalpPLNzRWXfwHQqwksrFeipEUlTLec"
+# нужно получить список строк: ['AY', 'NOGI', 'P']
+# Решить задачу двумя способами: с помощью re и без.
 
-def sort_to_max(origin_list):
-    swapped = True
-    while swapped:
-        swapped = False
-        for i in range(len(origin_list) - 1):
-            if origin_list[i] > origin_list[i + 1]:
-                # Меняем элементы
-                origin_list[i], origin_list[i +
-                                            1] = origin_list[i + 1], origin_list[i]
-                # Устанавливаем swapped в True для следующей итерации
-                swapped = True
-    return origin_list
+line_2 = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysm'\
+    'NOGIPHpEMujalpPLNzRWXfwHQqwksrFeipEUlTLeclMwAoktKlfUBJHPsnawvjPhfgewV'\
+    'fzKTUfSYtBydXaVIpxWjNKgXANvIoumesCSSvjEGRJosUfuhRRDUuTQwLlJJJDdkVjfSA'\
+    'HqnLxooisBDWuxIhyjJaXDYwdoVPnsllMngNlmkpYOlqXEFIxPqqqgAWdJsOvqppOfyIV'\
+    'jXapzGOrfinzzsNMtBIOclwbfRzytmDgEFUzxvZGkdOaQYLVBfsGSAfJMchgBWAsGnBnW'\
+    'etekUTVuPluKRMQsdelzBgLzuwiimqkFKpyQRzOUyHkXRkdyIEBvTjdByCfkVIAQaAbfC'\
+    'vzQWrMMsYpLtdqRltXPqcSMXJIvlBzKoQnSwPFkapxGqnZCVFfKRLUIGBLOwhchWCdJbR'\
+    'uXbJrwTRNyAxDctszKjSnndaFkcBZmJZWjUeYMdevHhBJMBSShDqbjAuDGTTrSXZywYkm'\
+    'jCCEUZShGofaFpuespaZWLFNIsOqsIRLexWqTXsOaScgnsUKsJxiihwsCdBViEQBHQaOn'\
+    'LfBtQQShTYHFqrvpVFiiEFMcIFTrTkIBpGUflwTvAzMUtmSQQZGHlmQKJndiAXbIzVkGS'\
+    'euTSkyjIGsiWLALHUCsnQtiOtrbQOQunurZgHFiZjWtZCEXZCnZjLeMiFlxnPkqfJFbCf'\
+    'KCuUJmGYJZPpRBFNLkqigxFkrRAppYRXeSCBxbGvqHmlsSZMWSVQyzenWoGxyGPvbnhWH'\
+    'uXBqHFjvihuNGEEFsfnMXTfptvIOlhKhyYwxLnqOsBdGvnuyEZIheApQGOXWeXoLWiDQN'\
+    'JFaXiUWgsKQrDOeZoNlZNRvHnLgCmysUeKnVJXPFIzvdDyleXylnKBfLCjLHntltignbQ'\
+    'oiQzTYwZAiRwycdlHfyHNGmkNqSwXUrxGC'
 
-
-z = [2, 10, -12, 2.5, 20, -11, 4, 4, 0]
-sort_to_max(z)
-print(z)
-print(sort_to_max([2, 10, -12, 2.5, 20, -11, 4, 4, 0]))
-
-
-# Задача-3:
-# Напишите собственную реализацию стандартной функции filter.
-# Разумеется, внутри нельзя использовать саму функцию filter.
-
-numbers = [10, 4, 2, -1, 6]
-print(list(filter(lambda x: x < 5, numbers)))
-
-
-def filt(num):
-    new_l = []
-    for i in num:
-        if i < 5:
-            new_l.append(i)
-    return new_l
-
-
-print(filt([10, 4, 2, -1, 6]))
-
-# Задача-4:
-# Даны четыре точки А1(х1, у1), А2(x2 ,у2), А3(x3 , у3), А4(х4, у4).
-# Определить, будут ли они вершинами параллелограмма.
-
-
-def is_parallelogram(a1, a2, a3, a4):
-    if abs(a3[0] - a2[0]) == abs(a4[0] - a1[0]) and abs(a2[1] - a1[1]) == abs(a3[1] - a4[1]):
-        return True
-    return False
+line_re2 = re.findall(r'[a-z]{2}([A-Z]+)[A-Z]{2}', line_2)
+print('Line_re2: \n', line_re2)
 
 
-print(is_parallelogram((-3, 11), (12, -4), (1, -7), (-14, 8)))
-print(is_parallelogram((3, 11), (12, -4), (1, -7), (-14, 8)))
+#print('List2 =', lst2)
+
+# Задание-3:
+# Напишите скрипт, заполняющий указанный файл (самостоятельно задайте имя файла)
+# произвольными целыми цифрами, в результате в файле должно быть
+# 2500-значное произвольное число.
+# Найдите и выведите самую длинную последовательность одинаковых цифр
+# в вышезаполненном файле.
+
+# HARD
+# Задание-1:
+# Матрицы в питоне реализуются в виде вложенных списков:
+# Пример. Дано:
+matrix = [[1, 0, 8],
+          [3, 4, 1],
+          [0, 4, 2]]
+print(matrix)
+
+
+# Выполнить поворот (транспонирование) матрицы
+# Пример. Результат:
+# matrix_rotate = [[1, 3, 0],
+#                  [0, 4, 4],
+#                  [8, 1, 2]]
+
+print('rotate_matrix = ', list(map(list, zip(*matrix))))
+
+# Суть сложности hard: Решите задачу в одну строку
+
+# Задание-2:
+# Найдите наибольшее произведение пяти последовательных цифр в 1000-значном числе.
+# Выведите произведение и индекс смещения первого числа последовательных 5-ти цифр.
+# Пример 1000-значного числа:
+number = """
+73167176531330624919225119674426574742355349194934
+96983520312774506326239578318016984801869478851843
+85861560789112949495459501737958331952853208805511
+12540698747158523863050715693290963295227443043557
+66896648950445244523161731856403098711121722383113
+62229893423380308135336276614282806444486645238749
+30358907296290491560440772390713810515859307960866
+70172427121883998797908792274921901699720888093776
+65727333001053367881220235421809751254540594752243
+52584907711670556013604839586446706324415722155397
+53697817977846174064955149290862569321978468622482
+83972241375657056057490261407972968652414535100474
+82166370484403199890008895243450658541227588666881
+16427171479924442928230863465674813919123162824586
+17866458359124566529476545682848912883142607690042
+24219022671055626321111109370544217506941658960408
+07198403850962455444362981230987879927244284909188
+84580156166097919133875499200524063689912560717606
+05886116467109405077541002256983155200055935729725
+71636269561882670428252483600823257530420752963450"""
+
+# Задание-3 (Ферзи):
+# Известно, что на доске 8×8 можно расставить 8 ферзей так, чтобы они не били
+# друг друга. Вам дана расстановка 8 ферзей на доске.
+# Определите, есть ли среди них пара бьющих друг друга.
+# Программа получает на вход восемь пар чисел,
+# каждое число от 1 до 8 — координаты 8 ферзей.
+# Если ферзи не бьют друг друга, выведите слово NO, иначе выведите YES.
