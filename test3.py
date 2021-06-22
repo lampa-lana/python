@@ -22,3 +22,5 @@ myfile = open(outputefile, 'a+', encoding="UTF-8")
 
 if b:
     myfile.write(" Самая большая последовательность " + str(b) + '\n')
+
+myfile.close()
