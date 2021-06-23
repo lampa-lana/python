@@ -9,13 +9,14 @@ import random
 
 def convert(km):
     if km > 0:
-        miles = km * 1.609
+        miles = km / 1.609
         print(miles)
     else:
         print(" Задайте положительное число!")
 
 
-convert(int(input(' Введите количество км для перевода в мили: ')))
+convert(int(input(' Введите количество мили для перевода в км: ')))
+
 
 # Задание-2:
 # Напишите функцию, округляющую полученное произвольное десятичное число
@@ -54,6 +55,8 @@ def lucky_ticket(ticket_number):
             int(num[-3])  # складываем последние три знака
         if lst1 == lst2:  # если сумма справа и слева номера билета равны - возвращаем true
             return True
+        else:
+            return False
     else:
         return False  # в противном случае - возвращаем false
 
