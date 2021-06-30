@@ -44,7 +44,6 @@ class Student(People):
 
         return (' Родителями ученика: ', self.get_full_name(), ' являются: ', self.parents_mam, self.parents_dad)
 
-    @property
     def get_class_room(self):
         return self._class_room
 
