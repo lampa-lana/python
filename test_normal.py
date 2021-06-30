@@ -19,6 +19,15 @@ import math
 # ----------------------------------------------------------------------------------------------
 
 
+class Class_Rooms:
+    def __init__(self, class_room):
+        self.class_room = {'class_num': int(class_room.split()[0]),
+                           'class_char': class_room.split()[1]}
+
+    def get_name_class(self):
+        return str(self.class_room['class_num']) + ' ' + self.class_room['class_char']
+
+
 class People:
     def __init__(self, name, surname, patronymic):
         self.name = name
@@ -59,3 +68,10 @@ class Teacher(People):
 
     def get_classes(self):
         return self._classes
+
+
+class_rooms = ['5 А', '7 Б', '10 Г']
+students = [Student('Иван', 'Петрович', 'Кузнецов', class_rooms[0], 'ученик'),
+            Student('Петр', 'Иванович', 'Соколов', class_rooms[0], 'ученик'),
+            Student('Мария', 'Федоровна', 'Петрова', class_rooms[1], 'ученик'),
+            Student('Наталия', 'Сергеевна', 'Алексеева', class_rooms[2], 'ученик')]
