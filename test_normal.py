@@ -19,17 +19,18 @@ import math
 # ----------------------------------------------------------------------------------------------
 
 
-class Class_Rooms:
-    def __init__(self, class_room):
+class ClassRooms:
+    def __init__(self, class_room, teachers):
         self.class_room = {'class_num': int(class_room.split()[0]),
                            'class_char': class_room.split()[1]}
+        self.teachers = teachers
 
     def get_name_class(self):
         return str(self.class_room['class_num']) + ' ' + self.class_room['class_char']
 
 
 class People:
-    def __init__(self, name, surname, patronymic):
+    def __init__(self, surname, name, patronymic):
         self.name = name
         self.surname = surname
         self.patronymic = patronymic
@@ -39,10 +40,9 @@ class People:
 
 
 class Student(People):
-    def __init__(self, name, surname, patronymic, class_room, human_status):
-        People.__init__(name, surname, patronymic)
-        # self.class_room = {'class_num': int(class_room.split()[0]),
-        #                    'class_char': class_room.split()[1]}
+    def __init__(self,  surname, name, patronymic, class_room, human_status):
+        People.__init__(self, surname, name,  patronymic)
+
         self._class_room = class_room
         self._human_status = human_status
 
@@ -58,20 +58,28 @@ class Student(People):
 
 
 class Teacher(People):
-    def __init__(self, name, surname, patronymic, courses, classes):
-        People.__init__(name, surname, patronymic)
+    def __init__(self, surname,  name, patronymic, courses):
+        People.__init__(self, surname, name,  patronymic)
         self._courses = courses
-        self._classes = classes
 
     def get_courses(self):
         return self._courses
 
-    def get_classes(self):
-        return self._classes
 
+teachers = [Teacher('Тамара', 'Ивановна', 'Часова',  'Математика'),
+            Teacher('Иван', 'Петрович', 'Медведев', 'Химия'),
+            Teacher("Лариса", "Сергеевна", "Блинова", 'Английский')]
 
-class_rooms = ['5 А', '7 Б', '10 Г']
+class_rooms = [ClassRooms('5 А', [teachers[0], teachers[1], teachers[2]]),
+               ClassRooms('7 Б', [teachers[0], teachers[2]]),
+               ClassRooms('10 В', [teachers[0], teachers[1]])]
+
 students = [Student('Иван', 'Петрович', 'Кузнецов', class_rooms[0], 'ученик'),
             Student('Петр', 'Иванович', 'Соколов', class_rooms[0], 'ученик'),
             Student('Мария', 'Федоровна', 'Петрова', class_rooms[1], 'ученик'),
             Student('Наталия', 'Сергеевна', 'Алексеева', class_rooms[2], 'ученик')]
+
+
+# получить все классы в школе
+for j in class_rooms:
+    print(j.get_name_class())
