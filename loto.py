@@ -13,7 +13,7 @@ class Player:
         barrel_line = None
         barrel_column = None
         if self.type == 'human':
-            answer = input("Is Barrel in your card?: ")
+            answer = input("Is Barrel in your card?")
         else:
             for line_num, line in enumerate(self.card.lines):
                 if barrel in line:
@@ -45,7 +45,7 @@ class Bag:
 class Card:
     def __init__(self):
         self.lines = [
-            list(' ' for j in range(0, 9)) for i in range(3)
+            list('__' for j in range(0, 9)) for i in range(3)
         ]
         self._put_numbers()
 
@@ -53,7 +53,7 @@ class Card:
         print('- '*9, 'Cart', '- '*9)
         for i in self.lines:
             print(i)
-        print('-' * 55)
+        print('- ' * 9, '++++', '- ' * 9)
 
     def _gen_numbers(self, number_to_search=15, start=1, end=90):
         continue_search = number_to_search
@@ -84,7 +84,7 @@ class Card:
 
 
 def game():
-    player = Player('Игрок 1', 'human')
+    player = Player('Bob', 'computer')
     player.card.show_lines()
     player2 = Player('Mike', 'computer')
     player2.card.show_lines()
@@ -99,8 +99,8 @@ def game():
         player2.card.show_lines()
 
 
-my_card = Card()
-
+# my_card = Card()
+# my_card.show_lines()
 
 bag = Bag()
 print("Barrel is", bag.get_barrel())
