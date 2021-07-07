@@ -18,22 +18,22 @@ class Tag:
 
 class Input(Tag):
     def __init__(self):
-        super().__init__('<input>'r'<\input>')
+        super().__init__('<input></input>')
 
 
 class Image(Tag):
     def __init__(self):
-        super().__init__('<img>'r'<\img>')
+        super().__init__('<img></img>')
 
 
 class Text(Tag):
     def __init__(self):
-        super().__init__('<p>'r'<\p>')
+        super().__init__('<p></p>')
 
 
 class Link(Tag):
     def __init__(self):
-        super().__init__('<a>'r'<\a>')
+        super().__init__('<a></a>')
 
 
 def create_tag(tag_type: TagType):

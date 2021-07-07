@@ -1,52 +1,59 @@
-from enum import Enum
+from html.parser import HTMLParser
 
 
-class TagType(Enum):
-    INPUT = 0,
-    IMAGE = 1,
-    TEXT = 2,
-    LINK = 3
+class Tag(object):
+    html = ''  # тег
+    attrs = ''  # атрибуты
+    decr = ''  # описание
 
+    def get_html(self):
+        return self.html
 
-class Tag:
-    def __init__(self, name):
-        self.name = name
+    def get_attrs(self):
+        return self.attrs
 
-    def get_name(self):
-        return self.name
+    def get_decr(self):
+        return self.decr
 
 
 class Input(Tag):
-    def __init__(self):
-        super().__init__('<input>'r'<\input>')
+    html = '<input>'
+    attrs = 'alt, checked'
+    decr = 'Позволяет создавать разные части интерфейса и обеспечивать взаимодействие с пользователем. Закрывающий тег не требуется'
 
 
 class Image(Tag):
-    def __init__(self):
-        super().__init__('<img>'r'<\img>')
+    html = '<img>'
+    attrs = 'src, alt'
+    decr = 'Предназначен для отображения на веб-странице изображений в графическом формате.Закрывающий тег не требуется'
 
 
-class Text(Tag):
-    def __init__(self):
-        super().__init__('<p>'r'<\p>')
+class P(Tag):
+    html = '<p></p>'
+    attrs = 'align - атрибут устарел'
+    decr = 'Определяет текстовый абзац.Закрывающий тег не требуется'
 
 
-class Link(Tag):
-    def __init__(self):
-        super().__init__('<a>'r'<\a>')
+class A(Tag):
+    html = '<a></a>'
+    attrs = 'href'
+    decr = 'Предназначен для создания ссылок'
 
 
-def create_tag(tag_type: TagType):
-    factory_dict = {
-        TagType.INPUT: Input,
-        TagType.IMAGE: Image,
-        TagType.TEXT: Text,
-        TagType.LINK: Link
-    }
-    return factory_dict[tag_type]()
+class Form(Tag):
+    html = '<form></form>'
+    attrs = 'action'
+    decr = 'Устанавливает форму на веб-странице'
 
 
-factory = Tag(Input)
-elem = ['image', 'input', 'p', 'a']
-for el in elem:
-    print(factory.create_tag(el).get_name())
+class TagFactory():
+    def create_tag(self, type):
+        targetclass = type.capitalize()
+        return globals()[targetclass]()
+
+
+factory = TagFactory()
+tags = ['image', 'input', 'p', 'a', 'form']
+for i in tags:
+    print(f'Тег {i} пишется: ', factory.create_tag(i).get_html(), factory.create_tag(i).get_decr(),
+          ' имеет атрибуты:', factory.create_tag(i).get_attrs())
