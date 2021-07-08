@@ -55,5 +55,5 @@ class TagFactory():
 factory = TagFactory()
 tags = ['image', 'input', 'p', 'a', 'form']
 for i in tags:
-    print(f'Тег {i} пишется: ', factory.create_tag(i).get_html(), factory.create_tag(i).get_decr(),
+    print(f'Тег <{i}> пишется: ', factory.create_tag(i).get_html(), factory.create_tag(i).get_decr(),
           ' имеет атрибуты:', factory.create_tag(i).get_attrs())
