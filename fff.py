@@ -62,54 +62,54 @@ class Students:
 if __name__ == '__main__':
     db = Students('group_students.json')
 
-    print('''\
-Select an action:
-    1 - add student,
-    2 - selection by group number,
-    3 - selection by student status(student/headman),
-    4 - full information output
-    exit - 0
-  
-''')
-    while True:
-        f = input('Your actions:  ')
-        if f == '1':
-            print('Enter data separated by a space(surname, name, patronymic, phone, birth_day, group_number, stud_status) :')
-            surname, name, patronymic, phone, birth_day, group_number, stud_status, faculty = input().split()
-            id = ''
-            nums = ['1', '2', '3', '4', '5', '6', '7']
-            while len(id) != 7:
-                id += random.choice(nums)
-            db.add_student(surname, name, patronymic, phone,
-                           birth_day, group_number, stud_status, id, faculty)
-        elif f == '2':
-            num = (input('Group number->  '))
-            items = (db.select_by_group_number(num))
-            for i in items:
-                print('\n----------------------------- \n')
-                for j, k in i.items():
-                    print(j, ': ', k)
+#     print('''\
+# Select an action:
+#     1 - add student,
+#     2 - selection by group number,
+#     3 - selection by student status(student/headman),
+#     4 - full information output
+#     exit - 0
 
-        elif f == '3':
-            items = db.select_by_stud_status(input('student/headman-> '))
-            for i in items:
-                print('\n----------------------------- \n')
-                for j, k in i.items():
-                    print(j, ': ', k)
+# ''')
+    # while True:
+    #     f = input('Your actions:  ')
+    #     if f == '1':
+    #         print('Enter data separated by a space(surname, name, patronymic, phone, birth_day, group_number, stud_status) :')
+    #         surname, name, patronymic, phone, birth_day, group_number, stud_status, faculty = input().split()
+    #         id = ''
+    #         nums = ['1', '2', '3', '4', '5', '6', '7']
+    #         while len(id) != 7:
+    #             id += random.choice(nums)
+    #         db.add_student(surname, name, patronymic, phone,
+    #                        birth_day, group_number, stud_status, id, faculty)
+    #     elif f == '2':
+    #         num = (input('Group number->  '))
+    #         items = (db.select_by_group_number(num))
+    #         for i in items:
+    #             print('\n----------------------------- \n')
+    #             for j, k in i.items():
+    #                 print(j, ': ', k)
 
-        elif f == '4':
-            with open('group_students.json', 'r') as json_file:
-                json_dec = json.load(json_file)
-                for i in json_dec:
-                    print('\n----------------------------- \n')
-                    for j, k in i.items():
-                        print(j, ': ', k)
+    #     elif f == '3':
+    #         items = db.select_by_stud_status(input('student/headman-> '))
+    #         for i in items:
+    #             print('\n----------------------------- \n')
+    #             for j, k in i.items():
+    #                 print(j, ': ', k)
 
-        else:
+    #     elif f == '4':
+    #         with open('group_students.json', 'r') as json_file:
+    #             json_dec = json.load(json_file)
+    #             for i in json_dec:
+    #                 print('\n----------------------------- \n')
+    #                 for j, k in i.items():
+    #                     print(j, ': ', k)
 
-            break
+    #     else:
 
-    db.save()
+    #         break
+
+    # db.save()
 
 
 # with open('group_students.json', 'r') as json_file:
@@ -124,3 +124,15 @@ Select an action:
 #         print(i)
 # with open("group_students.json", 'w') as json_file:
 #     json.dump(json_dec, json_file)
+
+answ = input('Enter the code of the faculty : ')
+
+with open('faculty.json') as data_file:
+    data = json.load(data_file)
+
+for element in data:
+    if answ in element:
+        del element[answ]
+
+with open('faculty.json', 'w') as data_file:
+    data = json.dump(data, data_file)

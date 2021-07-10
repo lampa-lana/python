@@ -14,13 +14,14 @@ class University:
         print('-------------------------------------------------------------------------------------------')
         print('We are located at {}.'. format(self.adress))
         print('-------------------------------------------------------------------------------------------')
-        print(' Our excellent educational institution presents the following areas of study:  \t')
+        print('Our excellent educational institution presents the following areas of study:  \t')
 
         data = json.load(open('faculty.json'))
         with open('faculty.json', 'w') as fac_file:
             json.dump(data, fac_file, indent=2, ensure_ascii=False)
             for i in data:
-                print('\n * ', i)
+                for j, k in i.items():
+                    print(j, ': ', k)
 
     def get_univer(self):
         return self
@@ -76,7 +77,7 @@ class Students(People):
         return [x for x in self.group_students if x['id'] == id]
 
     def get_studinfo_by_id(self):
-        print('\n-------------------------------------------------------\n')
+        print('-------------------------------------------------------------------------------------------')
         qust = (
             input('Do you want to see information about yourself? (y/n): ').lower())
         while len(qust) == 0 or qust not in 'yn':
@@ -88,10 +89,11 @@ class Students(People):
             id = input('Enter your id, please: ')
             items = (db.select_by_stud_id(id))
             for i in items:
-                print('\n----------------------------- \n')
+                print(
+                    '-------------------------------------------------------------------------------------------')
                 for j, k in i.items():
                     print(j, ': ', k)
-                print('\n----------------------------- \n')
+
         elif qust == 'n':
             print('You have exited the menu information about yourself! ')
 
@@ -113,67 +115,81 @@ class Director(People):
         self.phone = '+10 123 124 125'
 
     def get_add_faculty(self):
-        print('\n-------------------------------------------------------\n')
+        print('-------------------------------------------------------------------------------------------')
         qust = (input('Would you like to add a new specialty? (y/n): ').lower())
         data = json.load(open('faculty.json'))
         with open('faculty.json', 'w') as fac_file:
             json.dump(data, fac_file, indent=2, ensure_ascii=False)
             for i in data:
-                print('\n * ', i)
+                for j, k in i.items():
+                    print(j, ': ', k)
+
         while len(qust) == 0 or qust not in 'yn':
             print('\n\n!!! The answer is not recognized!\n')
             qust = (input('Would you like to add a new specialty? (y/n): ').lower())
 
         if qust == 'y':
+            print(
+                '-------------------------------------------------------------------------------------------')
+            key = input('Enter code of new faculty : ')
             value = input('Enter the name of the new faculty : ')
 
-            def write_json(faculty_dict):
+            def write_json(key, value):
                 try:
                     data = json.load(open('faculty.json'))
                 except:
-                    data = []
-                data.append(faculty_dict)
+                    data = [{}]
+                data.append({key: value})
                 with open('faculty.json', 'w') as fac_file:
                     json.dump(data, fac_file, indent=2, ensure_ascii=False)
             for i in range(1):
-                write_json(value)
+                write_json(key, value)
         elif qust == 'n':
+            print(
+                '-------------------------------------------------------------------------------------------')
             print('You have exited the menu for creating a new specialty! ')
 
     def get_del_faculty(self):
-        print('\n-------------------------------------------------------\n')
+        print('-------------------------------------------------------------------------------------------')
         qust = (input('Do you want to delete a specialty? (y/n): ').lower())
+        data = json.load(open('faculty.json'))
+        with open('faculty.json', 'w') as fac_file:
+            json.dump(data, fac_file, indent=2, ensure_ascii=False)
+            for i in data:
+                for j, k in i.items():
+                    print(j, ': ', k)
         while len(qust) == 0 or qust not in 'yn':
             print('\n\n!!! The answer is not recognized!\n')
             qust = (input('Want to delete a new specialty? (y/n): ').lower())
         if qust == 'y':
-            data = json.load(open('faculty.json'))
-            with open('faculty.json', 'w') as fac_file:
-                json.dump(data, fac_file, indent=2, ensure_ascii=False)
-                print('You can choose from the list\t')
-                for index, value in enumerate(data):
-                    print('{} {:>8}'.format(str(index+1)+'.', value))
-                # print('---------------------------------------------')
+            print('You can choose from the list\t')
+            answ = input('Enter the code of the faculty : ')
+            with open('faculty.json') as data_file:
+                data = json.load(data_file)
 
-            data = json.load(open('faculty.json'))
-            answ = input('Enter the name of the faculty : ')
-            for i in range(len(data)):
-                if data[i] == answ:
-                    data.pop(i)
-                    break
-            open("faculty.json", "w").write(json.dumps(
-                data, sort_keys=True, indent=4, separators=(',', ': ')))
-            print('----------------------------------------------------------')
+            for element in data:
+                if answ in element:
+                    del element[answ]
+
+            with open('faculty.json', 'w') as data_file:
+                data = json.dump(data, data_file)
+
+            print(
+                '-------------------------------------------------------------------------------------------')
             print('\n{} \nRemoved from the list of faculties !!!!'.format(answ))
-            print('----------------------------------------------------------')
+            print(
+                '-------------------------------------------------------------------------------------------')
             print('New Faculty List Created: ')
             data = json.load(open('faculty.json'))
             with open('faculty.json', 'w') as fac_file:
                 json.dump(data, fac_file, indent=2, ensure_ascii=False)
                 for i in data:
-                    print('\n * ', i)
+                    for j, k in i.items():
+                        print(j, ': ', k)
 
         elif qust == 'n':
+            print(
+                '-------------------------------------------------------------------------------------------')
             print('You have exited the specialty deletion menu !!! ')
 
     def get_stud_menu(srlf):
@@ -193,7 +209,7 @@ Select an action:
     3 - selection by student status(student/headman),
     4 - full information output
     exit - 0
-  
+
 ''')
             while True:
                 f = input('Your actions:  ')
@@ -211,7 +227,8 @@ Select an action:
                     num = (input('Group number->  '))
                     items = (db.select_by_group_number(num))
                     for i in items:
-                        print('\n----------------------------- \n')
+                        print(
+                            '-------------------------------------------------------------------------------------------')
                         for j, k in i.items():
                             print(j, ': ', k)
 
@@ -219,7 +236,8 @@ Select an action:
                     items = db.select_by_stud_status(
                         input('student/headman-> '))
                     for i in items:
-                        print('\n----------------------------- \n')
+                        print(
+                            '-------------------------------------------------------------------------------------------')
                         for j, k in i.items():
                             print(j, ': ', k)
 
@@ -227,7 +245,8 @@ Select an action:
                     with open('group_students.json', 'r') as json_file:
                         json_dec = json.load(json_file)
                         for i in json_dec:
-                            print('\n----------------------------- \n')
+                            print(
+                                '-------------------------------------------------------------------------------------------')
                             for j, k in i.items():
                                 print(j, ': ', k)
 
@@ -237,7 +256,7 @@ Select an action:
         elif qust == 'n':
             print(
                 'You are exited from the action menu with the list of students !!! ')
-        print('\n-------------------------------------------------------\n')
+        print('-------------------------------------------------------------------------------------------')
 
 
 a = University()
