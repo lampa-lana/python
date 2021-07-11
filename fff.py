@@ -12,7 +12,7 @@ import uuid
 
 # get_id()
 
-
+# https://stackoverflow.com/questions/36606930/delete-an-element-in-a-json-object
 class People:
     def __init__(self, surname, name, patronymic,  phone):
         self.name = name

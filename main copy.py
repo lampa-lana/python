@@ -14,17 +14,14 @@ class University:
         print('-------------------------------------------------------------------------------------------')
         print('We are located at {}.'. format(self.adress))
         print('-------------------------------------------------------------------------------------------')
-        print('Our excellent educational institution presents the following areas of study:  \t')
+        print('Our excellent educational institution presents the following areas of study:  \n\t')
 
         data = json.load(open('faculty.json'))
         with open('faculty.json', 'w') as fac_file:
             json.dump(data, fac_file, indent=2, ensure_ascii=False)
             for i in data:
                 for j, k in i.items():
-                    print(j, ': ', k)
-
-    def get_univer(self):
-        return self
+                    print(j, ': ', k, '\n')
 
 
 class People:
@@ -62,9 +59,9 @@ class Students(People):
     def get(self, num):  # нумерация студентов
         return self.group_students[num - 1]
 
-    def add_student(self,  surname, name, patronymic, phone, birth_day, group_number, stud_status, id, faculty):
+    def add_student(self,  surname, name, patronymic, phone, birth_day, group_number, stud_status, id, faculty, code_faculty):
         self.group_students.append({'surname': surname, 'name': name, 'patronymic': patronymic, 'phone': phone,
-                                   'birth_day': birth_day, 'group_number': group_number, 'stud_status': stud_status, 'id': id, 'faculty': faculty})
+                                   'birth_day': birth_day, 'group_number': group_number, 'stud_status': stud_status, 'id': id, 'faculty': faculty, 'code_faculty': code_faculty})
         self.save()
 
     def select_by_group_number(self, group_number):
@@ -96,6 +93,52 @@ class Students(People):
 
         elif qust == 'n':
             print('You have exited the menu information about yourself! ')
+
+    def get_menu_student(self):
+        print('\n-------------------------------------------------------\n')
+        qust = (
+            input('Do you want to see your profile and get information about the Academy? (y/n): ').lower())
+        while len(qust) == 0 or qust not in 'yn':
+            print('\n\n!!! The answer is not recognized!\n')
+            qust = (
+                input('Do you want to see your profile and get information about the Academy? (y/n): ').lower())
+        if qust == 'y':
+            status_s = Students('group_students.json')
+            print('''\
+    Select an action:
+            1 - Full information by id
+            2 - Information about the Academy
+            3 - Director Information 
+            Exit - 0
+    ''')
+
+            while True:
+                g = input('Your actions:  ')
+                if g == '1':
+                    status_s.get_studinfo_by_id()
+                elif g == '2':
+                    data = json.load(open('faculty.json'))
+                    with open('faculty.json', 'w') as fac_file:
+                        json.dump(data, fac_file, indent=2, ensure_ascii=False)
+                        for i in data:
+                            for j, k in i.items():
+                                print(j, ': ', k, '\n')
+                elif g == '3':
+                    status_d = Director()
+                    print('Director Information : \n\t',
+                          status_d.get_full_info())
+
+                else:
+                    print(
+                        '-------------------------------------------------------------------------------------------')
+                    print('You have exited the menu for creating a new specialty! ')
+                    print(
+                        '-------------------------------------------------------------------------------------------')
+                    break
+        elif qust == 'n':
+            print(
+                '-------------------------------------------------------------------------------------------')
+            print('You have exited the information menu! ')
 
 
 class Lecturer(People):
@@ -192,6 +235,46 @@ class Director(People):
                 '-------------------------------------------------------------------------------------------')
             print('You have exited the specialty deletion menu !!! ')
 
+    def get_menu_faculty(self):
+        print('\n-------------------------------------------------------\n')
+        qust = (
+            input('Do you want to take any action on the list of faculty? (y/n): ').lower())
+        while len(qust) == 0 or qust not in 'yn':
+            print('\n\n!!! The answer is not recognized!\n')
+            qust = (
+                input('Do you want to take any action on the list of faculty? (y/n): ').lower())
+        if qust == 'y':
+            s = Director()
+            print('''\
+    Select an action:
+            1 - Add faculty, 
+            2 - Delete faculty,
+            3 - Full information faculty  
+            Exit - 0
+    ''')
+
+            while True:
+                g = input('Your actions:  ')
+                if g == '1':
+                    s.get_add_faculty()
+                elif g == '2':
+                    s.get_del_faculty()
+                elif g == '3':
+                    data = json.load(open('faculty.json'))
+                    with open('faculty.json', 'w') as fac_file:
+                        json.dump(data, fac_file, indent=2, ensure_ascii=False)
+                        for i in data:
+                            for j, k in i.items():
+                                print(j, ': ', k, '\n')
+
+                else:
+                    print('You have exited the menu for creating a new specialty! ')
+                    break
+        elif qust == 'n':
+            print(
+                '-------------------------------------------------------------------------------------------')
+            print('You have exited the specialty menu !!! ')
+
     def get_stud_menu(srlf):
         print('\n-------------------------------------------------------\n')
         qust = (
@@ -204,25 +287,25 @@ class Director(People):
             db = Students('group_students.json')
             print('''\
 Select an action:
-    1 - add student,
-    2 - selection by group number,
-    3 - selection by student status(student/headman),
-    4 - full information output
-    exit - 0
+    1 - Add student,
+    2 - Selection by group number,
+    3 - Selection by student status(student/headman),
+    4 - Full information about students
+    Exit - 0
 
 ''')
             while True:
                 f = input('Your actions:  ')
                 if f == '1':
                     print(
-                        'Enter data separated by a space(surname, name, patronymic, phone, birth_day, group_number, stud_status, faculty) :')
-                    surname, name, patronymic, phone, birth_day, group_number, stud_status, faculty = input().split()
+                        'Enter data separated by a space(surname, name, patronymic, phone, birth_day, group_number, stud_status, faculty, code_faculty) :')
+                    surname, name, patronymic, phone, birth_day, group_number, stud_status, faculty, code_faculty = input().split()
                     id = ''
                     nums = ['1', '2', '3', '4', '5', '6', '7']
                     while len(id) != 7:
                         id += random.choice(nums)
                     db.add_student(surname, name, patronymic, phone,
-                                   birth_day, group_number, stud_status, id, faculty)
+                                   birth_day, group_number, stud_status, id, faculty, code_faculty)
                 elif f == '2':
                     num = (input('Group number->  '))
                     items = (db.select_by_group_number(num))
@@ -259,11 +342,11 @@ Select an action:
         print('-------------------------------------------------------------------------------------------')
 
 
-a = University()
-print(a.get_description())
+print(University().get_description())
 
 
 def get_status():
+    print('------------------------------------------------------------------------------------------------\n')
     qust = input(
         'Please enter your status in the educational institution (director, student, lecturer or n(exit)) : ')
     while len(qust) == 0 or qust not in 'directorstudentlecturern':
@@ -273,13 +356,13 @@ def get_status():
     if qust == 'director':
         status_d = Director()
         print('Welcome to the Academy: \n\t', status_d.get_full_info())
-        status_d.get_add_faculty()
-        status_d.get_del_faculty()
+        status_d.get_menu_faculty()
         status_d.get_stud_menu()
         print('Have a Nice Day')
     if qust == 'student':
         status_s = Students('group_students.json')
-        status_s.get_studinfo_by_id()
+        status_s.get_menu_student()
+        # status_s.get_studinfo_by_id()
         print('Have a Nice Day')
     if qust == 'lecturer':
         status_l = Lecturer()
