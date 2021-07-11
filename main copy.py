@@ -6,7 +6,9 @@ import random
 class University:
     def __init__(self):
         self.nickname = 'Intergalactic Academy of Universal Sciences'
+        self.short_nickname = 'IAUS'
         self.adress = 'Constellation Cetus, Planet Tau Whale f'
+        self.hours = 'Working Hours Around the Clock'
 
     def get_description(self):
         print('-------------------------------------------------------------------------------------------')
@@ -14,14 +16,25 @@ class University:
         print('-------------------------------------------------------------------------------------------')
         print('We are located at {}.'. format(self.adress))
         print('-------------------------------------------------------------------------------------------')
-        print('Our excellent educational institution presents the following areas of study:  \n\t')
+        return (self.hours + '\n')
 
-        data = json.load(open('faculty.json'))
+
+class Fucalty(University):
+    def __init__(self):
+        super().__init__()
+
+    def get_faculty(self):
+        print('Our excellent educational institution presents the following areas of study:  \n\t')
+        self.data = json.load(open('faculty.json'))
         with open('faculty.json', 'w') as fac_file:
-            json.dump(data, fac_file, indent=2, ensure_ascii=False)
-            for i in data:
+            json.dump(self.data, fac_file, indent=2, ensure_ascii=False)
+            for i in self.data:
                 for j, k in i.items():
                     print(j, ': ', k, '\n')
+            return ('Faculties at the {} at the moment'.format(self.short_nickname))
+
+    def get_detailed_faculty(self):
+        pass
 
 
 class People:
@@ -117,12 +130,8 @@ class Students(People):
                 if g == '1':
                     status_s.get_studinfo_by_id()
                 elif g == '2':
-                    data = json.load(open('faculty.json'))
-                    with open('faculty.json', 'w') as fac_file:
-                        json.dump(data, fac_file, indent=2, ensure_ascii=False)
-                        for i in data:
-                            for j, k in i.items():
-                                print(j, ': ', k, '\n')
+                    uni = Fucalty()
+                    uni.get_faculty()
                 elif g == '3':
                     status_d = Director()
                     print('Director Information : \n\t',
@@ -160,12 +169,8 @@ class Director(People):
     def get_add_faculty(self):
         print('-------------------------------------------------------------------------------------------')
         qust = (input('Would you like to add a new specialty? (y/n): ').lower())
-        data = json.load(open('faculty.json'))
-        with open('faculty.json', 'w') as fac_file:
-            json.dump(data, fac_file, indent=2, ensure_ascii=False)
-            for i in data:
-                for j, k in i.items():
-                    print(j, ': ', k)
+        uni = Fucalty()
+        uni.get_faculty()
 
         while len(qust) == 0 or qust not in 'yn':
             print('\n\n!!! The answer is not recognized!\n')
@@ -187,6 +192,11 @@ class Director(People):
                     json.dump(data, fac_file, indent=2, ensure_ascii=False)
             for i in range(1):
                 write_json(key, value)
+            print(
+                '-------------------------------------------------------------------------------------------')
+            print('You New Specialty Created! ')
+            print(
+                '-------------------------------------------------------------------------------------------')
         elif qust == 'n':
             print(
                 '-------------------------------------------------------------------------------------------')
@@ -195,12 +205,8 @@ class Director(People):
     def get_del_faculty(self):
         print('-------------------------------------------------------------------------------------------')
         qust = (input('Do you want to delete a specialty? (y/n): ').lower())
-        data = json.load(open('faculty.json'))
-        with open('faculty.json', 'w') as fac_file:
-            json.dump(data, fac_file, indent=2, ensure_ascii=False)
-            for i in data:
-                for j, k in i.items():
-                    print(j, ': ', k)
+        uni = Fucalty()
+        uni.get_faculty()
         while len(qust) == 0 or qust not in 'yn':
             print('\n\n!!! The answer is not recognized!\n')
             qust = (input('Want to delete a new specialty? (y/n): ').lower())
@@ -223,12 +229,8 @@ class Director(People):
             print(
                 '-------------------------------------------------------------------------------------------')
             print('New Faculty List Created: ')
-            data = json.load(open('faculty.json'))
-            with open('faculty.json', 'w') as fac_file:
-                json.dump(data, fac_file, indent=2, ensure_ascii=False)
-                for i in data:
-                    for j, k in i.items():
-                        print(j, ': ', k)
+            uni = Fucalty()
+            uni.get_faculty()
 
         elif qust == 'n':
             print(
@@ -260,12 +262,8 @@ class Director(People):
                 elif g == '2':
                     s.get_del_faculty()
                 elif g == '3':
-                    data = json.load(open('faculty.json'))
-                    with open('faculty.json', 'w') as fac_file:
-                        json.dump(data, fac_file, indent=2, ensure_ascii=False)
-                        for i in data:
-                            for j, k in i.items():
-                                print(j, ': ', k, '\n')
+                    uni = Fucalty()
+                    uni.get_faculty()
 
                 else:
                     print('You have exited the menu for creating a new specialty! ')
@@ -343,6 +341,7 @@ Select an action:
 
 
 print(University().get_description())
+print(Fucalty().get_faculty())
 
 
 def get_status():
