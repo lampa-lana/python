@@ -150,14 +150,6 @@ class Students(People):
             print('You have exited the information menu! ')
 
 
-class Lecturer(People):
-    def __init__(self):
-        self.name = 'name'
-        self.surname = 'surname'
-        self.patronymic = 'patronymic'
-        self.phone = 'phone'
-
-
 class Director(People):
     def __init__(self):
         super().__init__()
@@ -362,10 +354,6 @@ def get_status():
         status_s = Students('group_students.json')
         status_s.get_menu_student()
         # status_s.get_studinfo_by_id()
-        print('Have a Nice Day')
-    if qust == 'lecturer':
-        status_l = Lecturer()
-        print(status_l.get_full_name())
         print('Have a Nice Day')
     elif qust == 'n':
         print('You are exited from the Academy menu! ')
