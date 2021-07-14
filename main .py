@@ -6,38 +6,46 @@
 # но писать единовременно может только один писатель.»
 import threading
 import time
-from threading import Thread, Event, get_ident
-from threading import BoundedSemaphore
+from threading import Thread, Event, get_ident, BoundedSemaphore, Lock, RLock
+
 
 bs = BoundedSemaphore(1)
 event = Event()
 variable = ""
 variable2 = ""
+lock = RLock()
+mutex = threading.RLock()
 
 
 def producer1():
-    event.set()
-    global variable
-    variable += "Я Писатель1 и пишу очень хорошо "
-    print(" Писатель 1 говорит: Все ждите, пока я работаю! Поток {} время {}".format(
-        threading.get_ident(), time.ctime()))
-    time.sleep(1)
+    with mutex:
+        bs.acquire()
+        event.set()
+        global variable
+        variable += "Я Писатель1 и пишу очень хорошо "
+        print(" Писатель 1 говорит: Все ждите, пока я  работаю! Поток {} время {}".format(
+            threading.get_ident(), time.ctime()))
+        bs.release()
+        time.sleep(1)
 
 
 def producer2():
-    event.set()
-    global variable2
-    variable2 += "Я Писатель2 и пишу лучше Писателя 1 "
-    print(" Писатель 2 говорит: Все ждите, пока работаю я! Поток {} время {}".format(
-        threading.get_ident(), time.ctime()))
-    time.sleep(5)
+    with mutex:
+        bs.acquire()
+        event.set()
+        global variable2
+        variable2 += "Я Писатель2 и пишу лучше Писателя 1 "
+        print(" Писатель 2 говорит: Все ждите, пока работаю я ! Поток {} время {}".format(
+            threading.get_ident(), time.ctime()))
+        bs.release()
+        time.sleep(5)
 
 
 def consumer(thread_id):
     while True:
         event.wait()
         print("{} - Я взял! Вот что там было: {}, {}. (Поток {} время {})".format(thread_id,
-              variable, variable2, threading.get_ident(), time.ctime()))
+                                                                                  variable, variable2, threading.get_ident(), time.ctime()))
 
 
 if __name__ == '__main__':
@@ -45,13 +53,16 @@ if __name__ == '__main__':
     t1 = [threading.Thread(target=producer1)] + \
         [threading.Thread(target=producer2)]
     threads = (Thread(target=consumer, args=(thread_id, ))
-               for thread_id in range(3))
-    start = time.time()
+               for thread_id in range(5))
+
     for t in t1:
         t.start()
     for t in t1:
-        t.join()
+        t.join(timeout=5)
     for t in threads:
         t.start()
-event.clear()
-print((time.time() - start))
+    for t in threads:
+        t.join(timeout=5)
+
+    event.clear()
+    print((time.time() - start))
