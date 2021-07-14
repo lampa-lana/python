@@ -22,7 +22,7 @@ def producer1():
         bs.acquire()
         event.set()
         global variable
-        variable += "Я Писатель1 и пишу очень хорошо "
+        variable += "Я Писатель1 и пишу очень хорошо !!!!"
         print(" Писатель 1 говорит: Все ждите, пока я  работаю! Поток {} время {}".format(
             threading.get_ident(), time.ctime()))
         bs.release()
@@ -34,7 +34,7 @@ def producer2():
         bs.acquire()
         event.set()
         global variable2
-        variable2 += "Я Писатель2 и пишу лучше Писателя 1 "
+        variable2 += "Я Писатель2 и пишу лучше Писателя 1 !!!!"
         print(" Писатель 2 говорит: Все ждите, пока работаю я ! Поток {} время {}".format(
             threading.get_ident(), time.ctime()))
         bs.release()
@@ -44,8 +44,9 @@ def producer2():
 def consumer(thread_id):
     while True:
         event.wait()
-        print("{} - Я взял! Вот что там было: {}, {}. (Поток {} время {})".format(thread_id,
-                                                                                  variable, variable2, threading.get_ident(), time.ctime()))
+        print("{} - Я взял! Вот что там было: {}, {}. (Поток {} время {})".format(
+            thread_id, variable, variable2, threading.get_ident(), time.ctime()))
+        time.sleep(2)
 
 
 if __name__ == '__main__':
