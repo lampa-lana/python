@@ -1,6 +1,14 @@
 import socket
 import time
 import threading
+import json
+
+
+# qust = {'action': 'msg_from_chat',
+#         'time': time,
+#         'message': message,
+#         'user': {'name': name,
+#                  'status': 'online'}}
 
 shutdown = False
 join = False
