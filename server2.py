@@ -9,36 +9,67 @@ import json
 #           'message': message}
 
 # настройки хоста и порта
-host = 'localhost'
-port = 9090
-clients = []  # список подключаемых клиентов
 
 
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # создаем сокет
-s.bind((host, port))  # присвоение хоста и порта
-s.listen(10)  # максимальное количество одновременных звпросов
-quit = False
-print('[Server Srartet]')
+class File:
+    def __init__(self, file_name, method):
+        self.file_obj = open(file_name, method)
 
-while not quit:  # пока есть запросы на подключение от клиента
-    try:
-        # получаем данные клиентов данные, адрес и их максимальное количество которое можно принять от клиента
-        data, addr = s.recvfrom(1024)
-        if addr not in clients:
-            clients.append(addr)
-        itsatime = time.strftime(
-            '%Y-%m-%d-%H.%M.%S', time.localtime())  # текущее время
-        print('[' + addr[0] + '] = [' + str(addr[1]) +
-              '] = [' + itsatime + '] /', end='')
-        print(data.decode('utf-8'))
-        for client in clients:
-            if addr != client:
-                s.sendto(data, client)  # передаем данные
-    except Exception as ex:
-        print(ex)
-        print('\n[ Server Stoppped]')
-        quit = True
-s.close()  # закрываем соединение
+    def __enter__(self):
+        return self. file_obj
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.file_obj.close()
+
+
+class Server:
+    def __init__(self):
+        self.host = 'localhost'
+        self.port = 9090
+        self.clients = []  # список подключаемых клиентов
+
+    def get_server(self):
+        self.s = socket.socket(
+            socket.AF_INET, socket.SOCK_DGRAM)  # создаем сокет
+        self.s.bind((self.host, self.port))  # присвоение хоста и порта
+        self.quit = False
+        print('[Server Srartet]')
+
+        while not self.quit:  # пока есть запросы на подключение от клиента
+            try:
+                # получаем данные клиентов данные, адрес и их максимальное количество которое можно принять от клиента
+                self.data, self.addr = self.s.recvfrom(1024)
+                if self.addr not in self.clients:
+                    self.clients.append(self.addr)
+                itsatime = time.strftime(
+                    '%Y-%m-%d-%H.%M.%S', time.localtime())  # текущее время
+                print('[' + self.addr[0] + '] = [' + str(self.addr[1]) +
+                      '] = [' + itsatime + '] /', end='')
+                print(self.data.decode('utf-8'))
+
+                # self.t = {'response': '202',
+                #           'time': time.strftime(
+                #               '%Y-%m-%d-%H.%M.%S', time.localtime()),
+                #           }
+                # with open('serv_json.json', 'a+', encoding='UTF-8') as f:
+                #     json.dump(self.t, f, sort_keys=True,
+                #               indent=2,  ensure_ascii=False)
+
+                for client in self.clients:
+                    if self.addr != client:
+                        self.s.sendto(self.data, client)
+
+            except Exception as ex:
+                print(ex)
+                print('\n[ Server Stoppped]')
+                self.quit = True
+        self.s.close()  # закрываем соединение
+
+
+a = Server()
+a.get_server()
+
+
 # https: // translate.google.com/translate?sl = en & tl = ru & u = https: // stackoverflow.com/questions/39817641/how-to-send-a-json-object-using-tcp-socket-in-python
 # https://dvsemenov.ru/peredacha-fajla-cherez-soket-v-python-3/
 # https://digital2.ru/zametki-python-18-setevoe-programmirovanie/

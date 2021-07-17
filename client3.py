@@ -42,8 +42,18 @@ while not shutdown:
         try:
             message = input('[You] :: ')
             if message != '':
+                qust = {'action': 'msg_from_chat',
+                        'time': time.strftime(
+                            '%Y-%m-%d-%H.%M.%S', time.localtime()),
+                        'message': message,
+                        'user': {'name': name,
+                                 'status': 'online'}}
+
+                with open('cl_json.json', 'a+', encoding='UTF-8') as f:
+                    json.dump(qust, f, sort_keys=True,
+                              indent=2,  ensure_ascii=False)
                 s.sendto(('[' + name + ']  ::  ' +
-                         message).encode('utf-8'), server)
+                          'cl_json.json').encode('utf-8'), server)  # указываем само сообщение и куда его отправить
             time.sleep(0.2)
         except:
             s.sendto(('[' + name + '] < = left chat ').encode('utf-8'), server)
