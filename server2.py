@@ -8,34 +8,37 @@ import json
 #                    'status': 'online'},
 #           'message': message}
 
-
+# настройки хоста и порта
 host = 'localhost'
 port = 9090
-clients = []
+clients = []  # список подключаемых клиентов
 
 
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.bind((host, port))
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # создаем сокет
+s.bind((host, port))  # присвоение хоста и порта
+s.listen(10)  # максимальное количество одновременных звпросов
 quit = False
 print('[Server Srartet]')
 
-while not quit:
+while not quit:  # пока есть запросы на подключение от клиента
     try:
+        # получаем данные клиентов данные, адрес и их максимальное количество которое можно принять от клиента
         data, addr = s.recvfrom(1024)
         if addr not in clients:
             clients.append(addr)
-        itsatime = time.strftime('%Y-%m-%d-%H.%M.%S', time.localtime())
+        itsatime = time.strftime(
+            '%Y-%m-%d-%H.%M.%S', time.localtime())  # текущее время
         print('[' + addr[0] + '] = [' + str(addr[1]) +
               '] = [' + itsatime + '] /', end='')
         print(data.decode('utf-8'))
         for client in clients:
             if addr != client:
-                s.sendto(data, client)
+                s.sendto(data, client)  # передаем данные
     except Exception as ex:
         print(ex)
         print('\n[ Server Stoppped]')
         quit = True
-s.close()
+s.close()  # закрываем соединение
 # https: // translate.google.com/translate?sl = en & tl = ru & u = https: // stackoverflow.com/questions/39817641/how-to-send-a-json-object-using-tcp-socket-in-python
 # https://dvsemenov.ru/peredacha-fajla-cherez-soket-v-python-3/
 # https://digital2.ru/zametki-python-18-setevoe-programmirovanie/
