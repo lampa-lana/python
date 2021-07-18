@@ -3,59 +3,84 @@ import time
 import threading
 import json
 
-
 # qust = {'action': 'msg_from_chat',
 #         'time': time,
 #         'message': message,
 #         'user': {'name': name,
 #                  'status': 'online'}}
 
-shutdown = False
-join = False
+
+class File:
+    def __init__(self, file_name, method):
+        self.file_obj = open(file_name, method)
+
+    def __enter__(self):
+        return self. file_obj
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.file_obj.close()
 
 
-def receving(name, sock):
-    while not shutdown:
-        try:
-            while True:
-                data, addr = sock.recvfrom(1024)
-                print(data.decode('utf-8'))
-                time.sleep(0.2)
-        except:
-            pass
+class Client:
+    def __init__(self):
+        # логические флаги об отключении и подключении клиента
+        self.shutdown = False
+        self.join = False
+
+    def receving(self, name, sock):
+        self.name = name
+        self.sock = sock
+        while not self.shutdown:  # функция для приема  сообщений с сервера
+            try:
+                while True:
+                    data, addr = self.sock.recvfrom(1024)  # получаем сообщения
+                    print(data.decode('utf-8'))  # декодируем сообщения
+                    time.sleep(0.2)  # ждем 0.2 секунды на всякий случай
+            except:
+                pass
+
+    def get_client(self):
+        self.server = ('localhost', 9090)
+        # создаем анворгичный сокет как у сервера
+        self.s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.s.connect(('localhost', 0))  # конектимся с сервером
+        self.name = input('Name: ')
+
+        # делим потоки для получения сообщений
+        rT = threading.Thread(target=self.receving,
+                              args=(self.name, self.s))
+        rT.start()
+
+        while not self.shutdown:
+            if not self.join:
+                self.s.sendto(
+                    ('[' + self.name + '] => join chat ').encode('utf-8'),  self.server)
+                self.join = True
+            else:
+                try:
+                    message = input('[You] :: ')
+                    if message != '':  # кодируем сообщение
+                        self.qust = {'action': 'msg_from_chat',
+                                     'time': time.strftime(
+                                         '%Y-%m-%d-%H.%M.%S', time.localtime()),
+                                     'message': message,
+                                     'user': {'name': self.name,
+                                              'status': 'online'}}
+
+                        with open('cl_json.json', 'a+', encoding='UTF-8') as f:
+                            json.dump(self.qust, f, sort_keys=True,
+                                      indent=2,  ensure_ascii=False)
+                        self.s.sendto(('[' + self.name + ']  ::  ' + ' - ' + message + '-'
+                                       ).encode('utf-8'), self.server)  # указываем само сообщение и куда его отправить
+
+                    time.sleep(0.2)
+
+                except:
+                    self.s.sendto(
+                        ('[' + self.name + '] < = left chat ').encode('utf-8'), self.server)
+        rT.join()  # закрываем потоки
+        self.s.close()  # закрываем соединение
 
 
-server = ('localhost', 9090)
-
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.connect(('localhost', 0))
-name = input('Name: ')
-
-rT = threading.Thread(target=receving, args=('RecvThread', s))
-rT.start()
-
-while not shutdown:
-    if not join:
-        s.sendto(('[' + name + '] => join chat ').encode('utf-8'),  server)
-        join = True
-    else:
-        try:
-            message = input('[You] :: ')
-            if message != '':
-                qust = {'action': 'msg_from_chat',
-                        'time': time.strftime(
-                            '%Y-%m-%d-%H.%M.%S', time.localtime()),
-                        'message': message,
-                        'user': {'name': name,
-                                 'status': 'online'}}
-
-                with open('cl_json.json', 'a+', encoding='UTF-8') as f:
-                    json.dump(qust, f, sort_keys=True,
-                              indent=2,  ensure_ascii=False)
-                s.sendto(('[' + name + ']  ::  ' +
-                          'cl_json.json').encode('utf-8'), server)  # указываем само сообщение и куда его отправить
-            time.sleep(0.2)
-        except:
-            s.sendto(('[' + name + '] < = left chat ').encode('utf-8'), server)
-rT.join()
-s.close()
+d = Client()
+d.get_client()

@@ -1,17 +1,49 @@
 {
+  "message": "",
+  "response": "202",
+  "time": "2021-07-18-14.53.07",
+  "user": {
+    "name": "[Ivan] => join chat",
+    "status": "online"
+  }
+}{
   "action": "msg_from_chat",
-  "message": "Всем привет!!",
-  "time": "2021-07-18-13.43.39",
+  "message": "Всем привет!",
+  "time": "2021-07-18-14.53.16",
   "user": {
     "name": "Ivan",
     "status": "online"
   }
 }{
-  "message": " - Всем привет!!",
+  "message": " - Всем привет!",
   "response": "202",
-  "time": "2021-07-18-13.43.39",
+  "time": "2021-07-18-14.53.16",
   "user": {
     "name": "[Ivan]  ",
+    "status": "online"
+  }
+}{
+  "message": "",
+  "response": "202",
+  "time": "2021-07-18-14.53.34",
+  "user": {
+    "name": "[YY] => join chat",
+    "status": "online"
+  }
+}{
+  "action": "msg_from_chat",
+  "message": "привет привет!",
+  "time": "2021-07-18-14.53.42",
+  "user": {
+    "name": "YY",
+    "status": "online"
+  }
+}{
+  "message": " - привет привет!",
+  "response": "202",
+  "time": "2021-07-18-14.53.42",
+  "user": {
+    "name": "[YY]  ",
     "status": "online"
   }
 }

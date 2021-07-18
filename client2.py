@@ -70,9 +70,11 @@ class Client:
                         with open('cl_json.json', 'a+', encoding='UTF-8') as f:
                             json.dump(self.qust, f, sort_keys=True,
                                       indent=2,  ensure_ascii=False)
-                        self.s.sendto(('[' + self.name + ']  ::  ' + '*' + message + '*'
-                                       + 'cl_json.json').encode('utf-8'), self.server)  # указываем само сообщение и куда его отправить
+                        self.s.sendto(('[' + self.name + ']  ::  ' + ' - ' + message + '-'
+                                       ).encode('utf-8'), self.server)  # указываем само сообщение и куда его отправить
+
                     time.sleep(0.2)
+
                 except:
                     self.s.sendto(
                         ('[' + self.name + '] < = left chat ').encode('utf-8'), self.server)
