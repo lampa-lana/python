@@ -1,0 +1,17 @@
+{
+  "action": "msg_from_chat",
+  "message": "Всем привет!!",
+  "time": "2021-07-18-13.43.39",
+  "user": {
+    "name": "Ivan",
+    "status": "online"
+  }
+}{
+  "message": " - Всем привет!!",
+  "response": "202",
+  "time": "2021-07-18-13.43.39",
+  "user": {
+    "name": "[Ivan]  ",
+    "status": "online"
+  }
+}

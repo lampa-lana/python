@@ -1,6 +1,7 @@
 import socket
 import time
 import json
+import re
 
 # answer = {'response': code,
 #           'time': time,
@@ -39,6 +40,7 @@ class Server:
             try:
                 # получаем данные клиентов данные, адрес и их максимальное количество которое можно принять от клиента
                 self.data, self.addr = self.s.recvfrom(1024)
+
                 if self.addr not in self.clients:
                     self.clients.append(self.addr)
                 itsatime = time.strftime(
@@ -46,17 +48,27 @@ class Server:
                 print('[' + self.addr[0] + '] = [' + str(self.addr[1]) +
                       '] = [' + itsatime + '] /', end='')
                 print(self.data.decode('utf-8'))
-
-                # self.t = {'response': '202',
-                #           'time': time.strftime(
-                #               '%Y-%m-%d-%H.%M.%S', time.localtime()),
-                #           }
-                # with open('serv_json.json', 'a+', encoding='UTF-8') as f:
-                #     json.dump(self.t, f, sort_keys=True,
-                #               indent=2,  ensure_ascii=False)
-
                 for client in self.clients:
                     if self.addr != client:
+                        self.s.sendto(self.data, client)
+                for client in self.clients:
+                    if self.addr == client:
+                        r = self.data.decode('utf-8')
+                        l = r.find(':')
+                        name = r[:l]
+                        t = self.data.decode('utf-8')
+                        m = t.find(' - ')
+                        n = t.find('**')
+                        message = t[m:n]
+                        self.answ = {'response': '202',
+                                     'time': time.strftime(
+                                         '%Y-%m-%d-%H.%M.%S', time.localtime()),
+                                     'user': {'name': name,
+                                              'status': 'online'},
+                                     'message': message}
+                        with open('cl_json.json', 'a+', encoding='UTF-8') as f:
+                            json.dump(self.answ, f, sort_keys=True,
+                                      indent=2,  ensure_ascii=False)
                         self.s.sendto(self.data, client)
 
             except Exception as ex:
