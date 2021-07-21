@@ -1,26 +1,6 @@
 import socket
 import time
 import json
-import re
-
-# answer = {'response': code,
-#           'time': time,
-#           'user': {'name': name,
-#                    'status': 'online'},
-#           'message': message}
-
-# настройки хоста и порта
-
-
-class File:
-    def __init__(self, file_name, method):
-        self.file_obj = open(file_name, method)
-
-    def __enter__(self):
-        return self. file_obj
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.file_obj.close()
 
 
 class Server:

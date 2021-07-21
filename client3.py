@@ -2,23 +2,26 @@ import socket
 import time
 import threading
 import json
-
-# qust = {'action': 'msg_from_chat',
-#         'time': time,
-#         'message': message,
-#         'user': {'name': name,
-#                  'status': 'online'}}
+import sys
+import logging
+from log_config import app_log
 
 
-class File:
-    def __init__(self, file_name, method):
-        self.file_obj = open(file_name, method)
+def trace(func):
+    def callf(*args, **kwargs):
+        app_log.critical("CRITICAL!!!Function %s %s %s call from %s \n" %
+                         (func.__name__, args, kwargs, 'trace'))
+        func(*args, **kwargs)
+    return callf
 
-    def __enter__(self):
-        return self. file_obj
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.file_obj.close()
+def trace2(func):
+    def callf(*args, **kwargs):
+        app_log.info("Function %s  %s  %s call from %s \n" %
+                     (func.__name__, args, kwargs, 'trace2'))
+        func(*args, **kwargs)
+
+    return callf
 
 
 class Client:
@@ -27,6 +30,7 @@ class Client:
         self.shutdown = False
         self.join = False
 
+    @trace
     def receving(self, name, sock):
         self.name = name
         self.sock = sock
@@ -39,6 +43,7 @@ class Client:
             except:
                 pass
 
+    @trace2
     def get_client(self):
         self.server = ('localhost', 9090)
         # создаем анворгичный сокет как у сервера

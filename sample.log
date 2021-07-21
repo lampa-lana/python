@@ -1,0 +1,12 @@
+2021-07-21 13:10:01,910 INFO        client3.py  Function get_client  (<__main__.Client object at 0x0000021B2BF61F70>,)  {} call from trace2 
+
+2021-07-21 13:10:05,052 CRITICAL    client3.py  CRITICAL!!!Function receving (<__main__.Client object at 0x0000021B2BF61F70>, 'Alex', <socket.socket fd=424, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 62761), raddr=('127.0.0.1', 0)>) {} call from trace 
+
+2021-07-21 13:10:56,258 INFO        client2.py  Function get_client  (<__main__.Client object at 0x0000020974C91F70>,)  {} call from trace2 
+
+2021-07-21 13:11:03,602 CRITICAL    client2.py  CRITICAL!!! Function receving (<__main__.Client object at 0x0000020974C91F70>, 'Rex', <socket.socket fd=456, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 51038), raddr=('127.0.0.1', 0)>) {} call from trace 
+
+2021-07-21 13:11:23,955 INFO        client1.py  Function get_client  (<__main__.Client object at 0x00000245AC4C1F70>,)  {} call from trace2 
+
+2021-07-21 13:11:27,411 CRITICAL    client1.py  CRITICAL!!! Function receving (<__main__.Client object at 0x00000245AC4C1F70>, 'Tex', <socket.socket fd=392, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 55738), raddr=('127.0.0.1', 0)>) {} call from trace 
+
