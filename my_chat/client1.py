@@ -29,6 +29,7 @@ class Client:
         # логические флаги об отключении и подключении клиента
         self.shutdown = False
         self.join = False
+        self.server = ('localhost', 9100)
 
     @trace
     def receving(self, name, sock):
@@ -45,10 +46,11 @@ class Client:
 
     @trace2
     def get_client(self):
-        self.server = ('localhost', 9090)
+        self.server
         # создаем анворгичный сокет как у сервера
         self.s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.s.connect(('localhost', 0))  # конектимся с сервером
+        # конектимся с сервером
+        self.s.connect(('localhost', 9100))
         self.name = input('Name: ')
 
         # делим потоки для получения сообщений
@@ -61,9 +63,12 @@ class Client:
                 self.s.sendto(
                     ('[' + self.name + '] => join chat ').encode('utf-8'),  self.server)
                 self.join = True
+                print('You have entered the chat!!!' '\t')
+                print('Please press enter to start chatting')
+
             else:
                 try:
-                    message = input('[You] :: ')
+                    message = input('[' + self.name + '] ::  ')
                     if message != '':  # кодируем сообщение
                         self.qust = {'action': 'msg_from_chat',
                                      'time': time.strftime(

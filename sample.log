@@ -1,12 +1,50 @@
-2021-07-21 13:10:01,910 INFO        client3.py  Function get_client  (<__main__.Client object at 0x0000021B2BF61F70>,)  {} call from trace2 
+2021-07-23 11:08:53,319 INFO        client1.py  Function get_client  (<__main__.Client object at 0x000001FB1FAA7A30>,)  {} call from trace2 
 
-2021-07-21 13:10:05,052 CRITICAL    client3.py  CRITICAL!!!Function receving (<__main__.Client object at 0x0000021B2BF61F70>, 'Alex', <socket.socket fd=424, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 62761), raddr=('127.0.0.1', 0)>) {} call from trace 
+2021-07-23 11:08:55,475 CRITICAL    client1.py  CRITICAL!!! Function receving (<__main__.Client object at 0x000001FB1FAA7A30>, 'Ivan', <socket.socket fd=396, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 54505), raddr=('127.0.0.1', 9100)>) {} call from trace 
 
-2021-07-21 13:10:56,258 INFO        client2.py  Function get_client  (<__main__.Client object at 0x0000020974C91F70>,)  {} call from trace2 
+2021-07-23 11:13:25,380 INFO        client1.py  Function get_client  (<__main__.Client object at 0x0000013D380C7A30>,)  {} call from trace2 
 
-2021-07-21 13:11:03,602 CRITICAL    client2.py  CRITICAL!!! Function receving (<__main__.Client object at 0x0000020974C91F70>, 'Rex', <socket.socket fd=456, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 51038), raddr=('127.0.0.1', 0)>) {} call from trace 
+2021-07-23 11:13:27,310 CRITICAL    client1.py  CRITICAL!!! Function receving (<__main__.Client object at 0x0000013D380C7A30>, 'HHHH', <socket.socket fd=312, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 65217), raddr=('127.0.0.1', 9100)>) {} call from trace 
 
-2021-07-21 13:11:23,955 INFO        client1.py  Function get_client  (<__main__.Client object at 0x00000245AC4C1F70>,)  {} call from trace2 
+2021-07-23 12:34:28,306 INFO        client1.py  Function get_client  (<__main__.Client object at 0x0000021656987A30>,)  {} call from trace2 
 
-2021-07-21 13:11:27,411 CRITICAL    client1.py  CRITICAL!!! Function receving (<__main__.Client object at 0x00000245AC4C1F70>, 'Tex', <socket.socket fd=392, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 55738), raddr=('127.0.0.1', 0)>) {} call from trace 
+2021-07-23 12:34:29,851 CRITICAL    client1.py  CRITICAL!!! Function receving (<__main__.Client object at 0x0000021656987A30>, 'dddd', <socket.socket fd=396, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 57499), raddr=('127.0.0.1', 9100)>) {} call from trace 
+
+2021-07-23 12:46:18,397 INFO        client1.py  Function get_client  (<__main__.Client object at 0x0000025558D27A30>,)  {} call from trace2 
+
+2021-07-23 12:46:20,614 CRITICAL    client1.py  CRITICAL!!! Function receving (<__main__.Client object at 0x0000025558D27A30>, 'GGG', <socket.socket fd=388, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 52469), raddr=('127.0.0.1', 9100)>) {} call from trace 
+
+2021-07-23 14:06:07,173 INFO        client1.py  Function get_client  (<__main__.Client object at 0x0000024E17F87A30>,)  {} call from trace2 
+
+2021-07-23 14:06:09,555 CRITICAL    client1.py  CRITICAL!!! Function receving (<__main__.Client object at 0x0000024E17F87A30>, 'Ivan', <socket.socket fd=444, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 52425), raddr=('127.0.0.1', 9100)>) {} call from trace 
+
+2021-07-23 14:13:09,687 INFO        client1.py  Function get_client  (<__main__.Client object at 0x00000220ED6978E0>,)  {} call from trace2 
+
+2021-07-23 14:13:11,911 CRITICAL    client1.py  CRITICAL!!! Function receving (<__main__.Client object at 0x00000220ED6978E0>, 'Ivan', <socket.socket fd=392, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 65322), raddr=('127.0.0.1', 9100)>) {} call from trace 
+
+2021-07-23 14:14:07,399 INFO        client1.py  Function get_client  (<__main__.Client object at 0x000002025C1C78E0>,)  {} call from trace2 
+
+2021-07-23 14:14:29,525 INFO        client1.py  Function get_client  (<__main__.Client object at 0x000001DBADD278E0>,)  {} call from trace2 
+
+2021-07-23 14:14:31,766 CRITICAL    client1.py  CRITICAL!!! Function receving (<__main__.Client object at 0x000001DBADD278E0>, 'Ivan', <socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 56612), raddr=('127.0.0.1', 9100)>) {} call from trace 
+
+2021-07-23 14:18:45,669 INFO        client1.py  Function get_client  (<__main__.Client object at 0x0000024524917A30>,)  {} call from trace2 
+
+2021-07-23 14:18:47,705 CRITICAL    client1.py  CRITICAL!!! Function receving (<__main__.Client object at 0x0000024524917A30>, 'Ivan', <socket.socket fd=428, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 55019), raddr=('127.0.0.1', 9100)>) {} call from trace 
+
+2021-07-23 14:44:41,994 INFO        client1.py  Function get_client  (<__main__.Client object at 0x000002C7D1537A30>,)  {} call from trace2 
+
+2021-07-23 14:44:44,028 CRITICAL    client1.py  CRITICAL!!! Function receving (<__main__.Client object at 0x000002C7D1537A30>, 'Ivan', <socket.socket fd=344, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 51756), raddr=('127.0.0.1', 9100)>) {} call from trace 
+
+2021-07-23 15:07:36,799 INFO        client1.py  Function get_client  (<__main__.Client object at 0x000001DD65727A30>,)  {} call from trace2 
+
+2021-07-23 15:07:40,677 CRITICAL    client1.py  CRITICAL!!! Function receving (<__main__.Client object at 0x000001DD65727A30>, 'Ivan', <socket.socket fd=392, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 51257), raddr=('127.0.0.1', 9100)>) {} call from trace 
+
+2021-07-23 15:13:46,562 INFO        client1.py  Function get_client  (<__main__.Client object at 0x0000026D73877A30>,)  {} call from trace2 
+
+2021-07-23 15:13:50,131 CRITICAL    client1.py  CRITICAL!!! Function receving (<__main__.Client object at 0x0000026D73877A30>, 'iva', <socket.socket fd=392, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 56239), raddr=('127.0.0.1', 9100)>) {} call from trace 
+
+2021-07-23 15:16:30,114 INFO        client1.py  Function get_client  (<__main__.Client object at 0x00000183412F7A30>,)  {} call from trace2 
+
+2021-07-23 15:16:34,091 CRITICAL    client1.py  CRITICAL!!! Function receving (<__main__.Client object at 0x00000183412F7A30>, 'OkjH', <socket.socket fd=424, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 60708), raddr=('127.0.0.1', 9100)>) {} call from trace 
 

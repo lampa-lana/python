@@ -5,17 +5,25 @@ import json
 
 class Server:
     def __init__(self):
-        self.host = 'localhost'
-        self.port = 9090
+        self.host = Server.get_host(self)
+        self.port = Server.get_port(self)
         self.clients = []  # список подключаемых клиентов
-
-    def get_server(self):
         self.s = socket.socket(
             socket.AF_INET, socket.SOCK_DGRAM)  # создаем сокет
-        self.s.bind((self.host, self.port))  # присвоение хоста и порта
+        # присвоение хоста и порта
+        self.s.bind((self.host, self.port))
         self.quit = False
         print('[Server Srartet]')
 
+    def get_host(self):
+        self.host = 'localhost'
+        return self.host
+
+    def get_port(self):
+        self.port = 9100
+        return int(self.port)
+
+    def get_server(self):
         while not self.quit:  # пока есть запросы на подключение от клиента
             try:
                 # получаем данные клиентов данные, адрес и их максимальное количество которое можно принять от клиента
@@ -59,5 +67,5 @@ class Server:
         self.s.close()  # закрываем соединение
 
 
-a = Server()
-a.get_server()
+# a = Server()
+# a.get_server()
