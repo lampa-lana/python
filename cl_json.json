@@ -1,0 +1,57 @@
+{
+  "message": "",
+  "response": "202",
+  "time": "2021-07-25-14.06.34",
+  "user": {
+    "name": "[Ivan] => join chat",
+    "status": "online"
+  }
+}{
+  "message": "",
+  "response": "202",
+  "time": "2021-07-25-14.20.35",
+  "user": {
+    "name": "[Ivan] => join chat",
+    "status": "online"
+  }
+}{
+  "action": "msg_from_chat",
+  "message": "adad",
+  "time": "2021-07-25-14.20.37",
+  "user": {
+    "name": "Ivan",
+    "status": "online"
+  }
+}{
+  "message": " - adad",
+  "response": "202",
+  "time": "2021-07-25-14.20.37",
+  "user": {
+    "name": "[Ivan]  ",
+    "status": "online"
+  }
+}{
+  "message": "",
+  "response": "202",
+  "time": "2021-07-25-14.29.56",
+  "user": {
+    "name": "[dddd] => join chat",
+    "status": "online"
+  }
+}{
+  "action": "msg_from_chat",
+  "message": "dd",
+  "time": "2021-07-25-14.29.58",
+  "user": {
+    "name": "dddd",
+    "status": "online"
+  }
+}{
+  "message": " - dd",
+  "response": "202",
+  "time": "2021-07-25-14.29.58",
+  "user": {
+    "name": "[dddd]  ",
+    "status": "online"
+  }
+}

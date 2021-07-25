@@ -67,5 +67,5 @@ class Server:
         self.s.close()  # закрываем соединение
 
 
-# a = Server()
-# a.get_server()
+a = Server()
+a.get_server()

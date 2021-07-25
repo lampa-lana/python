@@ -48,3 +48,19 @@
 
 2021-07-23 15:16:34,091 CRITICAL    client1.py  CRITICAL!!! Function receving (<__main__.Client object at 0x00000183412F7A30>, 'OkjH', <socket.socket fd=424, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 60708), raddr=('127.0.0.1', 9100)>) {} call from trace 
 
+2021-07-25 13:46:02,478 INFO        client1.py  Function get_client  (<__main__.Client object at 0x000002BABF597910>,)  {} call from trace2 
+
+2021-07-25 13:46:05,875 CRITICAL    client1.py  CRITICAL!!! Function receving (<__main__.Client object at 0x000002BABF597910>, 'Ivan', <socket.socket fd=400, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 63647), raddr=('127.0.0.1', 9100)>) {} call from trace 
+
+2021-07-25 14:06:32,698 INFO        client1.py  Function get_client  (<__main__.Client object at 0x000001B272A07940>,)  {} call from trace2 
+
+2021-07-25 14:06:34,990 CRITICAL    client1.py  CRITICAL!!! Function receving (<__main__.Client object at 0x000001B272A07940>, 'Ivan', <socket.socket fd=420, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 56306), raddr=('127.0.0.1', 9100)>) {} call from trace 
+
+2021-07-25 14:20:33,193 INFO        client1.py  Function get_client  (<__main__.Client object at 0x000001F1388A7940>,)  {} call from trace2 
+
+2021-07-25 14:20:35,397 CRITICAL    client1.py  CRITICAL!!! Function receving (<__main__.Client object at 0x000001F1388A7940>, 'Ivan', <socket.socket fd=448, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 57820), raddr=('127.0.0.1', 9100)>) {} call from trace 
+
+2021-07-25 14:29:54,674 INFO        client1.py  Function get_client  (<__main__.Client object at 0x000001B5EE857940>,)  {} call from trace2 
+
+2021-07-25 14:29:56,488 CRITICAL    client1.py  CRITICAL!!! Function receving (<__main__.Client object at 0x000001B5EE857940>, 'dddd', <socket.socket fd=384, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=0, laddr=('127.0.0.1', 51604), raddr=('127.0.0.1', 9100)>) {} call from trace 
+

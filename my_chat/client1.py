@@ -3,8 +3,8 @@ import time
 import threading
 import json
 import sys
-import logging
-from log_config import app_log
+# import logging
+# from log_config import app_log
 
 
 def trace(func):
@@ -29,7 +29,15 @@ class Client:
         # логические флаги об отключении и подключении клиента
         self.shutdown = False
         self.join = False
-        self.server = ('localhost', 9100)
+        self.server = (Client.get_host_cl(self), Client.get_port_cl(self))
+
+    def get_host_cl(self):
+        self.host = 'localhost'
+        return self.host
+
+    def get_port_cl(self):
+        self.port = 9100
+        return self.port
 
     @trace
     def receving(self, name, sock):

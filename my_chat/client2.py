@@ -3,8 +3,8 @@ import time
 import threading
 import json
 import sys
-import logging
-from log_config import app_log
+# import logging
+# from log_config import app_log
 
 
 def trace(func):
