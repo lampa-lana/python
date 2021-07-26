@@ -12,7 +12,7 @@ class Server:
             socket.AF_INET, socket.SOCK_DGRAM)  # создаем сокет
         # присвоение хоста и порта
         self.s.bind((self.host, self.port))
-        self.quit = False
+        self.quit = Server.get_quit(self)
         print('[Server Srartet]')
 
     def get_host(self):
@@ -22,6 +22,10 @@ class Server:
     def get_port(self):
         self.port = 9100
         return int(self.port)
+
+    def get_quit(self):
+        self.quit = False
+        return self.quit
 
     def get_server(self):
         while not self.quit:  # пока есть запросы на подключение от клиента
@@ -67,5 +71,5 @@ class Server:
         self.s.close()  # закрываем соединение
 
 
-a = Server()
-a.get_server()
+# a = Server()
+# a.get_server()

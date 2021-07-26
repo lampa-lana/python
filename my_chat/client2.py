@@ -7,21 +7,21 @@ import sys
 # from log_config import app_log
 
 
-def trace(func):
-    def callf(*args, **kwargs):
-        app_log.critical("CRITICAL!!! Function %s %s %s call from %s \n" %
-                         (func.__name__, args, kwargs, 'trace'))
-        func(*args, **kwargs)
-    return callf
+# def trace(func):
+#     def callf(*args, **kwargs):
+#         app_log.critical("CRITICAL!!! Function %s %s %s call from %s \n" %
+#                          (func.__name__, args, kwargs, 'trace'))
+#         func(*args, **kwargs)
+#     return callf
 
 
-def trace2(func):
-    def callf(*args, **kwargs):
-        app_log.info("Function %s  %s  %s call from %s \n" %
-                     (func.__name__, args, kwargs, 'trace2'))
-        func(*args, **kwargs)
+# def trace2(func):
+#     def callf(*args, **kwargs):
+#         app_log.info("Function %s  %s  %s call from %s \n" %
+#                      (func.__name__, args, kwargs, 'trace2'))
+#         func(*args, **kwargs)
 
-    return callf
+#     return callf
 
 
 class Client:
@@ -30,7 +30,7 @@ class Client:
         self.shutdown = False
         self.join = False
 
-    @trace
+    # @trace
     def receving(self, name, sock):
         self.name = name
         self.sock = sock
@@ -43,7 +43,7 @@ class Client:
             except:
                 pass
 
-    @trace2
+    # @trace2
     def get_client(self):
         self.server = ('localhost', 9100)
         # создаем анворгичный сокет как у сервера

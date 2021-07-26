@@ -2,14 +2,14 @@ from socket import socket
 import unittest
 import socket
 import time
-from my_chat.server2 import Server
+from my_chat.client1 import Client
 from unittest.mock import patch, Mock
 
 
-class TestServerHost(unittest.TestCase):
-    @patch('my_chat.server2.Server')
+class TestClientHost(unittest.TestCase):
+    @patch('my_chat.client1.Client')
     def setUp(self, result):
-        self.result = Server.get_host(self)
+        self.result = Client.get_host_cl(self)
         print('start')
 
     def test_host(self):
@@ -20,16 +20,15 @@ class TestServerHost(unittest.TestCase):
         print('end')
 
 
-class TestServerPort(unittest.TestCase):
-    @patch('my_chat.server2.Server')
+class TestClientPort(unittest.TestCase):
+    @patch('my_chat.client1.Client')
     def setUp(self, result):
-        self.result = Server.get_port(self)
+        self.result = Client.get_port_cl(self)
         print('start')
 
     def test_port(self):
-        result = Server.get_port(self)
-        self.assertIsInstance(result, int)
-        print(result)
+        self.assertIsInstance(self.result, int)
+        print(self.result)
 
     def tearDown(self):
         print('end')
@@ -37,3 +36,6 @@ class TestServerPort(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+# python -m tests.test_client
