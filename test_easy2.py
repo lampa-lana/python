@@ -16,6 +16,12 @@ class Trapezium(Side):
         self._B = B
         self._C = C
         self._D = D
+        self.AB = 0
+        self.BC = 0
+        self.CD = 0
+        self.DA = 0
+        self.AC = 0
+        self.BD = 0
 
     def culc_sides(self):  # метод вычисления сторон фигуры сформированного вершинами с использованием формулы родительского класса
         self.AB = self.culc_side(self._A, self._B)

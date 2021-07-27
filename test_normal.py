@@ -121,9 +121,10 @@ def get_list_stud():
         quest = input('Укажите класс для вывода списка учащихся: ')
         print(' В {} классе учатся : '.format(quest))
         for i in class_rooms:
-            for j in students:
-                if i in quest and j.get_student_class() in quest:
-                    print('\t', j.get_short_name())
+            if i in quest:
+                for j in students:
+                    if j.get_student_class() in quest:
+                        print('\t', j.get_short_name())
 
     else:
         print(' Хорошего дня! ')
