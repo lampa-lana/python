@@ -1,0 +1,67 @@
+CREATE TABLE competition (
+  	competition_id integer PRIMARY key,
+  	competition_name TEXT,
+  	world_record numeric (100, 0),
+  	set_date DATE
+);
+  INSERT from competition VALUES (1, 'running 100 meters', 10, '10-02-2002');
+INSERT INTO competition VALUES (9, 'ice skating 1200 meters', '50', '05-15-2010');
+CREATE TABLE sportsman (
+  	sportsman_id integer PRIMARY KEY,
+  	sportsman_name TEXT,
+  	sportsman_rank TEXT,
+    year_of_birth INTEGER,
+  	personal_record NUMERIC(100),
+  	country TEXT
+  );
+
+INSERT INTO sportsman VALUES (1, 'Ivanov Ivan', '1', 1990, 10, 'Russia');
+INSERT INTO sportsman VALUES (2, 'Petrov Nikolay', '3', 1990, 17, 'Russia');
+INSERT INTO sportsman VALUES (3, 'Dmitriev Sergey', '5', 1991, 20, 'Russia');
+INSERT INTO sportsman VALUES (4, 'John Smith', '2', 1995, 20, 'Great Britain');
+INSERT INTO sportsman VALUES (5, 'Jackson Michael ', '4', 1990, 18, 'USA');
+INSERT INTO sportsman VALUES (6, 'Julio Iglesias ', '6', 1985, 20, 'Spain');
+SELECT sportsman_name, year_of_birth from sportsman WHERE year_of_birth = 1990;
+
+CREATE TABLE result_competition(
+   res_id int PRIMARY key,
+   competition_id int NOT NULL,
+   sportsman_id int NOT NULL,  
+   FOREIGN key(competition_id) REFERENCES competition,
+   FOREIGN key(sportsman_id) REFERENCES sportsman,
+   UNIQUE(competition_id, sportsman_id),
+   result_sportsman INT not null check(result_sportsman > 0),
+   city TEXT,
+   hold_date DATE  
+  );
+
+INSERT INTO result_competition VALUES (1, 1, 1, 3, 'Moscow', '05-15-2010');
+INSERT INTO result_competition VALUES (2, 2, 1, 1, 'Moscow', '05-15-2010');
+INSERT INTO result_competition VALUES (3, 3, 2, 3, 'Moscow', '05-15-2010');
+INSERT INTO result_competition VALUES (4, 3, 4, 5, 'Moscow', '05-15-2010');
+INSERT INTO result_competition VALUES (5, 6, 3, 2, 'Moscow', '05-15-2010');
+INSERT INTO result_competition VALUES (6, 7, 3, 1, 'Moscow', '05-15-2010');
+INSERT INTO result_competition VALUES (7, 4, 5, 1, 'Moscow', '05-15-2010');
+INSERT INTO result_competition VALUES (8, 5, 5, 2, 'Moscow', '05-15-2010');
+INSERT INTO result_competition VALUES (9, 7, 6, 2, 'Moscow', '05-15-2010');
+INSERT INTO result_competition VALUES (10, 8, 6, 1, 'Moscow', '05-15-2010');
+SELECT 
+result_competition.res_id as res_id, result_competition.city as city_name, result_competition.sportsman_id as res_sportsman_id,
+sportsman.sportsman_id as sportsman_id, sportsman.sportsman_name as sportsman_name 
+from result_competition
+left JOIN sportsman on sportsman.sportsman_id=result_competition.sportsman_id
+
+
+
+
+DELETE from competition WHERE competition_id =9;
+SELECT * from competition WHERE set_date BETWEEN '05-12-2010' and '05-15-2010'
+
+
+
+SELECT 
+result_competition.res_id as res_id, result_competition.city as city_name, result_competition.sportsman_id as res_sportsman_id,
+sportsman.sportsman_id as sportsman_id, sportsman.sportsman_name as sportsman_name,sportsman.country as sportsman_country, sportsman.sportsman_rank as sportsman_rank
+from result_competition 
+left JOIN sportsman on sportsman.sportsman_id=result_competition.sportsman_id
+WHERE sportsman.sportsman_rank>'1'
