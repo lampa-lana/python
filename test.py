@@ -85,23 +85,23 @@ import sqlite3
 #         conn.rollback()
 #     else:
 #         conn.commit()
-#     finally:
-#         print(' GOOD!!! ')
+# #     finally:
+# #         print(' GOOD!!! ')
 
+# #
+# with sqlite3.connect('Sport.sqlite') as conn:
+#     # cursor = conn.cursor()
 
-with sqlite3.connect('Sport.sqlite') as conn:
-    cursor = conn.cursor()
+# try:
+#     cursor.execute('SELECT * from competition;')
+#     result = cursor.fetchall()
 
-    try:
-        cursor.execute('SELECT * from competition;')
-        result = cursor.fetchall()
-
-        for i in result:
-            print(i)
-    except sqlite3.Error as e:
-        print(e)
-        conn.rollback()
-    else:
-        conn.commit()
-    finally:
-        print(' GOOD!!! ')
+#     for i in result:
+#         print(i)
+# except sqlite3.Error as e:
+#     print(e)
+#     conn.rollback()
+# else:
+#     conn.commit()
+# finally:
+#     print(' GOOD!!! ')
