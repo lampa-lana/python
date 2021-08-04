@@ -1,15 +1,18 @@
-from sqlalchemy import create_engine
 from sqlalchemy.engine import base
-from sqlalchemy import Column, Integer, String, Date, Text, NUMERIC, create_engine
+from sqlalchemy import Column, Integer, String, Date, Text, NUMERIC, ForeignKey, MetaData, create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.sql import select, and_
+from sqlalchemy.orm import sessionmaker, relationship, mapper
+from sqlalchemy.sql.schema import Table
 import sqlAl_tablel
 
 engine = create_engine(
     'sqlite:///Sportsqlalchemy.sqlite', echo=True)
 
 
-Base = declarative_base()
+Base = declarative_base(engine)
+
+
 Base.metadata.create_all(engine)
 
 Session = sessionmaker(bind=engine)

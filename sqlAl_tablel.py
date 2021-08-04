@@ -1,13 +1,18 @@
-from sqlalchemy import create_engine
 from sqlalchemy.engine import base
-from sqlalchemy import Column, Integer, String, Date, Text, NUMERIC, ForeignKey, create_engine
+from sqlalchemy import Column, Integer, String, Date, Text, NUMERIC, ForeignKey, MetaData, create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.sql import select, and_
+from sqlalchemy.orm import sessionmaker, relationship, mapper
+from sqlalchemy.sql.schema import Table
 engine = create_engine(
     'sqlite:///Sportsqlalchemy.sqlite', echo=True)
 
 
 Base = declarative_base()
+
+# sportsman = Table('sportsman', Base, autoload=True)
+# competition = Table('competition', Base, autoload=True)
+# result_competition = Table('result_competition', Base, autoload=True)
 
 
 class Sportsman(Base):
@@ -68,6 +73,10 @@ class ResultCompetition(Base):
     def __repr__(self):
         return '\t''Result of Competition {} ''\n'' Competition number in the competition table: {} '  '\n'' ''======================================'' '  '\n'' sportsman id: {}'  '\n'' result sportsman:{} '  '\n'' city: {}'  '\n'' hold date: {}'  '\n'' ''======================================'' '  '\n'''.format(self.res_id, self.competition_id, self.sportsman_id, self.result_sportsman, self.city, self.hold_date)
 
+
+# mapper(Competition,  'competition')
+# mapper(Sportsman,  'sportsman')
+# mapper(ResultCompetition,  'result_competition')
 
 Base.metadata.create_all(engine)
 
