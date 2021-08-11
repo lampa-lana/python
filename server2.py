@@ -3,25 +3,6 @@ import time
 import json
 import re
 
-# answer = {'response': code,
-#           'time': time,
-#           'user': {'name': name,
-#                    'status': 'online'},
-#           'message': message}
-
-# настройки хоста и порта
-
-
-class File:
-    def __init__(self, file_name, method):
-        self.file_obj = open(file_name, method)
-
-    def __enter__(self):
-        return self. file_obj
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.file_obj.close()
-
 
 class Server:
     def __init__(self):
@@ -48,9 +29,11 @@ class Server:
                 print('[' + self.addr[0] + '] = [' + str(self.addr[1]) +
                       '] = [' + itsatime + '] /', end='')
                 print(self.data.decode('utf-8'))
+
                 for client in self.clients:
                     if self.addr != client:
                         self.s.sendto(self.data, client)
+
                 for client in self.clients:
                     if self.addr == client:
                         r = self.data.decode('utf-8')

@@ -46,4 +46,52 @@
     "name": "[YY]  ",
     "status": "online"
   }
+}{
+  "message": "",
+  "response": "202",
+  "time": "2021-08-05-16.09.23",
+  "user": {
+    "name": "[Ivan] => join chat",
+    "status": "online"
+  }
+}{
+  "action": "msg_from_chat",
+  "message": "hey !!",
+  "time": "2021-08-05-16.09.31",
+  "user": {
+    "name": "Ivan",
+    "status": "online"
+  }
+}{
+  "message": " - hey !!",
+  "response": "202",
+  "time": "2021-08-05-16.09.31",
+  "user": {
+    "name": "[Ivan]  ",
+    "status": "online"
+  }
+}{
+  "message": "",
+  "response": "202",
+  "time": "2021-08-05-16.10.20",
+  "user": {
+    "name": "[YY] => join chat",
+    "status": "online"
+  }
+}{
+  "action": "msg_from_chat",
+  "message": "heya!!",
+  "time": "2021-08-05-16.10.27",
+  "user": {
+    "name": "YY",
+    "status": "online"
+  }
+}{
+  "message": " - heya!!",
+  "response": "202",
+  "time": "2021-08-05-16.10.27",
+  "user": {
+    "name": "[YY]  ",
+    "status": "online"
+  }
 }
