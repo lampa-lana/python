@@ -73,7 +73,7 @@ class ClassRooms:
 
 
 class_rooms = ['5 А', '7 Б', '10 В']
-
+# class_rooms = [ClassRooms('5 А', '7 Б', '10 В')]
 teachers = [Teacher('Тамара', 'Ивановна', 'Часова', [class_rooms[0], class_rooms[1], class_rooms[2]], 'Математика'),
             Teacher('Иван', 'Петрович', 'Медведев', [
                     class_rooms[1], class_rooms[2]], 'Химия'),
