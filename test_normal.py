@@ -62,22 +62,29 @@ class Teacher(People):
 
 class ClassRooms:
     def __init__(self, class_room):
-        self.class_room = {'class_num': int(class_room.split()[0]),
-                           'class_letter': class_room.split()[0]}
+        self.class_room = class_room
 
     def get_class_room(self):
         return self.class_room
 
-    def get_name(self):
-        return str(self.class_room['class_num']) + ' ' + self.class_room['class_letter']
+    # def get_name_class(self):
+    #     return str(self.class_room['class_num']) + ' ' + self.class_room['class_letter']
 
 
-class_rooms = ['5 А', '7 Б', '10 В']
-# class_rooms = [ClassRooms('5 А', '7 Б', '10 В')]
+# class_rooms = ['5 А', '7 Б', '10 В']
+class_rooms = [ClassRooms('5 А'),
+               ClassRooms('7 Б'),
+               ClassRooms('10 В')]
+# for i in class_rooms:
+#     print(i)
+
 teachers = [Teacher('Тамара', 'Ивановна', 'Часова', [class_rooms[0], class_rooms[1], class_rooms[2]], 'Математика'),
             Teacher('Иван', 'Петрович', 'Медведев', [
                     class_rooms[1], class_rooms[2]], 'Химия'),
             Teacher("Лариса", "Сергеевна", "Блинова", [class_rooms[0], class_rooms[1]], 'Английский')]
+# for i in teachers:
+#     print(i.get_classes())
+
 parents = [People('Петр', 'Иванович', 'Кузнецов'),
            People('Мария', 'Ивановна', 'Кузнецова'),
            People('Иван', 'Сидорович', 'Соколов'),
@@ -93,7 +100,8 @@ students = [Student('Иван', 'Петрович', 'Кузнецов', class_ro
             Student('Мария', 'Федоровна', 'Петрова',
                     class_rooms[1], parents[4], parents[5]),
             Student('Наталия', 'Сергеевна', 'Алексеева',  class_rooms[2], parents[6], parents[7])]
-
+# for i in students:
+#     print(i.get_student_class().get_class_room())
 print('------------------------------------------------------------------------------------------\n')
 # получить все классы в школе
 
@@ -103,7 +111,7 @@ def get_school_class():
     if quest == 'да'.lower():
         print(' Список классов в школе: ')
         for i in class_rooms:
-            print(i)
+            print(i.get_class_room())
     else:
         print(' Хорошего дня! ')
 
@@ -120,11 +128,9 @@ def get_list_stud():
     if quest1 == 'да'.lower():
         quest = input('Укажите класс для вывода списка учащихся: ')
         print(' В {} классе учатся : '.format(quest))
-        for i in class_rooms:
-            if i in quest:
-                for j in students:
-                    if j.get_student_class() in quest:
-                        print('\t', j.get_short_name())
+        for j in students:
+            if j.get_student_class().get_class_room() == quest:
+                print(j.get_full_name())
 
     else:
         print(' Хорошего дня! ')
@@ -142,21 +148,23 @@ def choice_stud():
     if quest1 == 'да'.lower():
         st = input('Введите имя студента (формат Фамилия И.О.): ')
         st1 = ''
-        for i in students:
-            i.get_short_name()
-            i.get_student_class()
-            if i.get_short_name() == st:
-                st1 = i.get_student_class()
-                print('\t Ученик : ', i.get_short_name(), 'Класс : ', st1)
-                for j in teachers:
-                    j.get_full_name()
-                    j.get_subject()
-                    j.get_classes()
-                    if st1 in j.get_classes():
-                        print('Учитель:', j.get_full_name(),
-                              '--- ', 'Предмет: ', j.get_subject())
-    else:
-        print(' Хорошего дня! ')
+
+    for i in students:
+        i.get_short_name()
+        i.get_student_class().get_class_room()
+        if i.get_short_name() == st:
+            st1 = i.get_student_class()
+            print('\t Ученик : ', i.get_short_name(), 'Класс : ',
+                  i.get_student_class().get_class_room())
+            for j in teachers:
+                j.get_full_name()
+                j.get_subject()
+                j.get_classes()
+                if st1 in j.get_classes():
+                    print('Учитель:', j.get_full_name(),
+                          '--- ', 'Предмет: ', j.get_subject())
+        else:
+            print(' Хорошего дня! ')
 
 
 choice_stud()
@@ -192,11 +200,14 @@ def choice_teacher():
     if quest1 == 'да'.lower():
         tch = input(
             ' Введите класс, для вывода списка учителей (формат ввода например 1 Г): ')
-        for i in teachers:
-            tch2 = i.get_classes()
-            i.get_full_name()
-            if tch in tch2:
-                print(i.get_full_name())
+        for i in class_rooms:
+            if i.get_class_room() == tch:
+                st1 = i
+                for j in teachers:
+                    if st1 in j.get_classes():
+                        print('Учитель:', j.get_full_name(),
+                              '--- ', 'Предмет: ', j.get_subject())
+
     else:
         print(' Хорошего дня! ')
 
